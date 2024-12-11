@@ -126,6 +126,17 @@ function combate(){
         vidasJugador--
         spanVidasJugador.innerHTML = vidasJugador
     }
+
+    revisarVidas()
+}
+
+function revisarVidas(){
+    //validamos las vidas del jugador y enemigo en esta funcion 
+    if(vidasJugador == 0){
+        crearMensajeFinal("Lo sentimos, perdiste, intenta nuevamente 🥹")
+    }else if(vidasEnemigo == 0){
+        crearMensaje("Felicidades, GANASTE! el juego ha llegado a su fin 🥳")
+    }
 }
 
 function crearMensaje(resultado){
@@ -139,6 +150,13 @@ function crearMensaje(resultado){
     //agregamos el parafo accediendo al meodo de la seccion
     seccionMensaje.appendChild(parrafo)
     //document.body.appendChild(parrafo)
+}
+
+function crearMensajeFinal(resultadoFinal){
+    let seccionMensaje = document.getElementById('mensajes')
+    let parrafo = document.createElement('p')
+    parrafo.innerHTML = resultadoFinal
+    seccionMensaje.appendChild(parrafo)
 }
 
 function numeroAleatorio(min, max) {
