@@ -1,5 +1,7 @@
 let ataqueJugador
 let ataqueEnemigo
+let vidasJugador = 3
+let vidasEnemigo = 3
 
 //2.-
 function iniciarJuego(){
@@ -106,14 +108,23 @@ function ataqueDelEnemigo(){
 
 //creamos funcion para separar la logica del ataque, y ahhi mandamos llamar a la funcion que cree el mensaje dell ganador
 function combate(){
+    //creamos las variables para acceder al span de vidas
+    let spanVidasJugador = document.getElementById('vidas-jugador')
+    let spanVidasEnemigo = document.getElementById('vidas-enemigo')
+
     if(ataqueJugador == ataqueEnemigo){
         //se pasan los arrgumentos con el resultado directamente a la funcion para ser utilizados con su valor final
         crearMensaje("EMPATE 😒")
     }
     else if(ataqueJugador == "FUEGO" && ataqueEnemigo == "TIERRA" || ataqueJugador == "AGUA" && ataqueEnemigo == "FUEGO" || ataqueJugador == "TIERRA" && ataqueEnemigo == "AGUA"){
         crearMensaje("GANASTE!! 🏆")
+        //decrementamos la variable global, para proporcionar la informacion en pantalla
+        vidasEnemigo--
+        spanVidasEnemigo.innerHTML = vidasEnemigo
     }else{
         crearMensaje("PERDISTE 😭")
+        vidasJugador--
+        spanVidasJugador.innerHTML = vidasJugador
     }
 }
 
