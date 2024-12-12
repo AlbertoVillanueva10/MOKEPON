@@ -17,6 +17,10 @@ function iniciarJuego(){
     botonFuego.addEventListener('click',ataqueFuego)
     let botonTierra = document.getElementById('boton-tierra')
     botonTierra.addEventListener('click',ataqueTierra)
+
+    //creamos boton reiniciar
+    let botonReiniciar = document.getElementById("boton-reiniciar")
+    botonReiniciar.addEventListener('click',reiniciarJuego)
 }
 
 //3.- una vez que presionamos el boton "seleccionar"
@@ -65,20 +69,20 @@ function seleccionarEnemigo(){
 //8.- se crean las funciones para cada ataque, y se modifican segun su eleccion 
 function ataqueAgua(){
     ataqueJugador = 'AGUA'
-    alert('Elegiste: ' + ataqueJugador)
+    //alert('Elegiste: ' + ataqueJugador)
     //10.- inmediatamente llamamos la funcion del ataque del enemigo
     ataqueDelEnemigo(ataqueJugador)
 }
 
 function ataqueFuego(){
     ataqueJugador = 'FUEGO'
-    alert('Elegiste: ' + ataqueJugador)
+    //alert('Elegiste: ' + ataqueJugador)
     ataqueDelEnemigo(ataqueJugador)
 }
 
 function ataqueTierra(){
     ataqueJugador = 'TIERRA'
-    alert('Elegiste: ' + ataqueJugador)
+    //alert('Elegiste: ' + ataqueJugador)
     ataqueDelEnemigo(ataqueJugador)
 }
 
@@ -89,17 +93,17 @@ function ataqueDelEnemigo(){
 
     if(ataqueAleatorio == 1){
         ataqueEnemigo = "FUEGO"
-        alert("El ataque del enemigo fue: " + ataqueEnemigo)
+       // alert("El ataque del enemigo fue: " + ataqueEnemigo)
        // spanAtaqueEnemigo.innerHTML = ataqueEnemigo
     }
     else if(ataqueAleatorio == 2){
         ataqueEnemigo = "AGUA"
-        alert("El ataque del enemigo fue: " + ataqueEnemigo)
+        //alert("El ataque del enemigo fue: " + ataqueEnemigo)
         //spanAtaqueEnemigo.innerHTML = ataqueEnemigo
     }
     else {
         ataqueEnemigo = "TIERRA"
-        alert("El ataque del enemigo fue: " + ataqueEnemigo)
+        //alert("El ataque del enemigo fue: " + ataqueEnemigo)
         //spanAtaqueEnemigo.innerHTML = ataqueEnemigo
     }
     //mandamos llamar la funcion combate, y ahi utilizamos la de crearmensaje()
@@ -134,9 +138,19 @@ function revisarVidas(){
     //validamos las vidas del jugador y enemigo en esta funcion 
     if(vidasJugador == 0){
         crearMensajeFinal("Lo sentimos, perdiste, intenta nuevamente 🥹")
+        //manda llamar a la funcion finDelJuego
+        finDelJuego()
     }else if(vidasEnemigo == 0){
-        crearMensaje("Felicidades, GANASTE! el juego ha llegado a su fin 🥳")
+        crearMensajeFinal("Felicidades, GANASTE! el juego ha llegado a su fin 🥳")
+        finDelJuego()
     }
+}
+
+//deshabilita los botones una vez que alguien perdio
+function finDelJuego(){
+    document.getElementById('boton-fuego').disabled = true
+    document.getElementById('boton-agua').disabled = true
+    document.getElementById('boton-tierra').disabled = true
 }
 
 function crearMensaje(resultado){
@@ -157,6 +171,11 @@ function crearMensajeFinal(resultadoFinal){
     let parrafo = document.createElement('p')
     parrafo.innerHTML = resultadoFinal
     seccionMensaje.appendChild(parrafo)
+}
+
+
+function reiniciarJuego(){
+    window.location.reload();
 }
 
 function numeroAleatorio(min, max) {
