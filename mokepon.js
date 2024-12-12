@@ -45,7 +45,7 @@ function seleccionarJugador(){
     else{
         alert("Selecciona una Mascota para continuar")
     }
-    //5.- mandamos llamar a la funcion justo despues de seleccionar el la mascora-jugador
+    //5.- mandamos llamar a la funcion justo despues de seleccionar el la mascota-jugador
     seleccionarEnemigo()
     
 }
