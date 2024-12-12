@@ -5,6 +5,13 @@ let vidasEnemigo = 3
 
 //2.-
 function iniciarJuego(){
+    //ocultamos la seccion ataque hasta que el usuario haya seleccionado mascota
+    let sectionAtaque = document.getElementById('seleccionar-ataque')
+    sectionAtaque.style.display = 'none'
+    //se oculta boton reiniciar tambien
+    let botonReiniciar = document.getElementById('boton-reiniciar')
+    botonReiniciar.style.display = 'none'
+
 //se declara la variable, se iguala al valor del objeto document, que a su vez ejecuta su metodo getelement, para acceder a la propiedad html a traves de su id
     let seleccionarMascotaJugador = document.getElementById("boton-mascota")
     //ahora a la variable creada, llamamos a su metodo addeventlistener para escuchar cuando de click, y mandamos llamar la funcion selecciona juador
@@ -17,14 +24,19 @@ function iniciarJuego(){
     botonFuego.addEventListener('click',ataqueFuego)
     let botonTierra = document.getElementById('boton-tierra')
     botonTierra.addEventListener('click',ataqueTierra)
-
-    //creamos boton reiniciar
-    let botonReiniciar = document.getElementById("boton-reiniciar")
+    //al presionarlo mandamos llamar a la funcion reiniciarJuego
     botonReiniciar.addEventListener('click',reiniciarJuego)
+
 }
 
 //3.- una vez que presionamos el boton "seleccionar"
 function seleccionarJugador(){
+    //cambiamos la propiedad a block para aparecer la seccion seleccionar ataque
+    let sectionAtaque = document.getElementById('seleccionar-ataque')
+    sectionAtaque.style.display = 'block'
+    //ocultamos la seccion seleccionar mascota
+    let sectionMascota = document.getElementById('seleccionar-mascota')
+    sectionMascota.style.display = 'none'
     let inputHipodoge = document.getElementById('hipodoge')
     let inputCapipepo = document.getElementById('capipepo')
     let inputRatigueya = document.getElementById('ratigueya')
@@ -151,6 +163,11 @@ function finDelJuego(){
     document.getElementById('boton-fuego').disabled = true
     document.getElementById('boton-agua').disabled = true
     document.getElementById('boton-tierra').disabled = true
+    //creamos boton reiniciar
+    let botonReiniciar = document.getElementById("boton-reiniciar")
+    //reapaecemos el boton reiniciar
+    botonReiniciar.style.display = 'block'
+    
 }
 
 function crearMensaje(resultado){
