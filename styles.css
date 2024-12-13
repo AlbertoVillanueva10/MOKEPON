@@ -1,9 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Almendra+Display&family=Big+Shoulders+Stencil+Display:wght@100..900&display=swap');
+
 /* Selector universal */
 *{
     padding: 0;
     margin: 0;
     /* propiedad para que no agregue mas px al tamanio total, sino que los sume para que de el total deseado */
     box-sizing: border-box;
+}
+
+body{
+    font-family: "Big Shoulders Stencil Display", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
 }
 
 .contenedor {
@@ -14,16 +23,30 @@
 }
 
 #seleccionar-mascota{
-    background-color: #F2F9FF;
+    background-color: #89A8B2;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     flex-direction: column;
     width: 50%;
+    margin: 50px;
 }
 
 .titulo{
     padding: 10px;
+}
+
+.subtitulo{
+    margin: 30px;
+}
+
+.tarjetas{
+    display: flex;
+    gap: 10px;
+}
+
+.tarjetas img{
+    width: 80px;
 }
 
 .elegir-mascota{
@@ -32,10 +55,11 @@
 
 .caja-label{
     display: flex;
+    flex-direction: column;
     align-items: center;
-    background-color: #FFF5D7;
-    width: 80px;
-    height: 80px;
+    background-color: #F1F0E8;
+    width: 100%;
+    /* height: 80px; */
     margin: 5px;
     border: 1px solid #9AA6B2;
 
@@ -45,13 +69,14 @@ label{
     padding: 5px;
 }
 
-label:hover{
+label:hover,
+label:active{
     cursor: pointer;
-    background-color: #f9e5ab;
+    background-color: #f1f0e8ba;
 }
 
 label:active{
-    background-color: #f9e5ab;
+    background-color: #f1f0e8ba;
 }
 
 input{
@@ -61,8 +86,21 @@ input{
 button{
     margin: 10px;
 }
+
 button:hover{
     cursor: pointer;
+}
+
+#boton-mascota{
+    background-color: #1F509A;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+#boton-mascota:hover{
+    background-color: #1f509a7f;
+
 }
 
 body{

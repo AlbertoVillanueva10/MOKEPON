@@ -11,26 +11,38 @@
     </head>
     <body>
         
-        <section class="contenedor">
-            <section id="seleccionar-mascota">
-            <h1 class="titulo"> MOKEPON! 🔥💧🌱</h1>
+    <div class="contenedor">
+        <section id="seleccionar-mascota">
+            <h1 class="titulo">Mokepon</h1>
             
-            <h2 class="elegir-mascota">Elige a tu mascota: </h2>
+            <h2 class="subtitulo">Elige a tu mascota: </h2>
             
             <!--etiqueta span para hacerlo dinamico con js -->
             <!-- input tipo radio, necesita estar agrupado para la seleccion -->
-            <label class="caja-label" for="hipodoge">Hhipogoge</label>
-            <input type="radio" name="mascota" id="hipodoge">
-            
-            <label class="caja-label" for="capipepo">Capipepo</label>
-            <input type="radio" name="mascota" id="capipepo">
-            
-            <label class="caja-label" for="ratigueya">Raigueya</label>
-            <input type="radio" name="mascota" id="ratigueya">
-            
-            <button id="boton-mascota">Seleccionar</button>
+            <div class="tarjetas">
+
+                <label class="caja-label" for="hipodoge">
+                    <p>Hhipodoge</p>
+                    <img src="./assets/hipodoge_attack.png" alt="Hhipodoge">
+                </label>
+                <input type="radio" name="mascota" id="hipodoge">
+                
+                <label class="caja-label" for="capipepo">
+                    <p>Capipepo</p>
+                    <img src="./assets/capipepo_attack.png" alt="Capipepo">
+                </label>
+                <input type="radio" name="mascota" id="capipepo">
+                
+                <label class="caja-label" for="ratigueya">
+                    <p>Ratigueya</p>
+                    <img src="./assets/ratigueya_attack.png" alt="Ratigueya">
+                </label>
+                <input type="radio" name="mascota" id="ratigueya">
+            </div>
+                
+            <button id="boton-mascota">Continuar</button>
         </section>
-        
+    
         <section id="seleccionar-ataque">
             <h1 class="titulo"> MOKEPON! 🔥💧🌱</h1>
             <h2>Elige tu ataque: </h2>
@@ -61,6 +73,6 @@
             <section id="reiniciar">
                 <button id="boton-reiniciar">Reiniciar</button>
             </section>
-        </section>
+    </div>
 </body>
 </html>
