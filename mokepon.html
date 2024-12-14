@@ -11,68 +11,65 @@
     </head>
     <body>
         
-    <div class="contenedor">
-        <section id="seleccionar-mascota">
-            <h1 class="titulo">Mokepon</h1>
+    <!-- <div class="contenedor"> -->
+    <section class="sub-containers" id="seleccionar-mascota">
+        <div class="titulo">
+            <h1 class="">Mokepon</h1>
+        </div>
+        <div class="subtitulo">
+            <h2 class="">Elige a tu mascota: </h2>
+        </div>
+        
+        <!--etiqueta span para hacerlo dinamico con js -->
+        <!-- input tipo radio, necesita estar agrupado para la seleccion -->
+        <div class="tarjetas">
+            <input type="radio" name="mascota" id="hipodoge">
+            <label class="caja-label" for="hipodoge">
+                <p>Hhipodoge</p>
+                <img src="./assets/hipodoge_attack.png" alt="Hhipodoge">
+            </label>
             
-            <h2 class="subtitulo">Elige a tu mascota: </h2>
+            <input type="radio" name="mascota" id="capipepo">
+            <label class="caja-label" for="capipepo">
+                <p>Capipepo</p>
+                <img src="./assets/capipepo_attack.png" alt="Capipepo">
+            </label>
             
-            <!--etiqueta span para hacerlo dinamico con js -->
-            <!-- input tipo radio, necesita estar agrupado para la seleccion -->
-            <div class="tarjetas">
-
-                <label class="caja-label" for="hipodoge">
-                    <p>Hhipodoge</p>
-                    <img src="./assets/hipodoge_attack.png" alt="Hhipodoge">
-                </label>
-                <input type="radio" name="mascota" id="hipodoge">
-                
-                <label class="caja-label" for="capipepo">
-                    <p>Capipepo</p>
-                    <img src="./assets/capipepo_attack.png" alt="Capipepo">
-                </label>
-                <input type="radio" name="mascota" id="capipepo">
-                
-                <label class="caja-label" for="ratigueya">
-                    <p>Ratigueya</p>
-                    <img src="./assets/ratigueya_attack.png" alt="Ratigueya">
-                </label>
-                <input type="radio" name="mascota" id="ratigueya">
-            </div>
-                
+            <input type="radio" name="mascota" id="ratigueya">
+            <label class="caja-label" for="ratigueya">
+                <p>Ratigueya</p>
+                <img src="./assets/ratigueya_attack.png" alt="Ratigueya">
+            </label>
+        </div>
+        
+        <div class="btn-mascota">
             <button id="boton-mascota">Continuar</button>
-        </section>
+        </div>
+            
+    </section>
     
-        <section id="seleccionar-ataque">
-            <h1 class="titulo"> MOKEPON! 🔥💧🌱</h1>
+    <section class="sub-containers" id="seleccionar-ataque">
+        <div class="titulo">
+            <h1 class="">Mokepon</h1>
+        </div>
+        <div class="subtitulo">
             <h2>Elige tu ataque: </h2>
-            
-            
-            <!-- 
-                <input type="radio" name="mascota" id="langostelvis">
-                Langostelvis -> Agua y Fuego
-                <input type="radio" name="mascota" id="tucapalmas">
-                
-                Tucapalmas -> Agua y Tierra
-                Pydos -> Tierra y fuego
-                -->
-                <!-- Se utiliza la etiqueta span para interactuar desde js en html -->
-                <p>Tu mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
-                <p>La mascota <span id="mascota-enemigo"></span> del enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
-                <p>
-                    <button id="boton-fuego">Fuego 🔥</button>
-                    <button id="boton-agua">Agua 💧</button>
-                    <button id="boton-tierra">Tierra 🌱</button>
-                </p>
-            </section>
-            
+        </div>
+            <!-- Se utiliza la etiqueta span para interactuar desde js en html -->
+            <p>Tu mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
+            <p>La mascota <span id="mascota-enemigo"></span> del enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+            <div>
+                <button id="boton-fuego">Fuego 🔥</button>
+                <button id="boton-agua">Agua 💧</button>
+                <button id="boton-tierra">Tierra 🌱</button>
+            </div>
+
             <section id="mensajes">
                 <!-- <p>Tu mascota ataco con FUEGO, la mascota del enemigo ataco con AGUA - Ganaste 🎉</p> -->
             </section>
+            <button id="boton-reiniciar">Reiniciar</button>
+    </section>
             
-            <section id="reiniciar">
-                <button id="boton-reiniciar">Reiniciar</button>
-            </section>
-    </div>
+    <!-- </div> -->
 </body>
 </html>

@@ -22,14 +22,19 @@ body{
     flex-direction: column;
 }
 
-#seleccionar-mascota{
-    background-color: #89A8B2;
+.sub-containers{
+    /* background-color: #608BC1; */
     display: flex;
     /* justify-content: center; */
     align-items: center;
     flex-direction: column;
     width: 50%;
-    margin: 50px;
+    margin: 0 auto;
+    padding: 10px;
+    background: url(./assets/background-nature-2.jpeg);
+    background-size: cover;
+    border-radius: 4px;
+    opacity: .9;
 }
 
 .titulo{
@@ -57,27 +62,44 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #F1F0E8;
+    background-color: transparent;
     width: 100%;
     /* height: 80px; */
     margin: 5px;
     border: 1px solid #9AA6B2;
+    border-radius: 7px;
+    
+    opacity: 0.8; /* Hace la imagen casi transparente */
+    transition: all 0.3s ease; /* Suaviza la transición para efectos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra suave */
+    border-radius: 10px; /* Bordes redondeados (opcional) */
 
 }
 
 label{
     padding: 5px;
+    
 }
 
-label:hover,
-label:active{
+label:hover{
     cursor: pointer;
-    background-color: #f1f0e8ba;
+    /* background-color: #AB886D; */
+    color: black;
+    transition: background-color 0.3s, color 0.3s;
+    /* opacity: .9; */
+
+    opacity: 1; /* Devuelve la imagen a su opacidad completa */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
+    transform: scale(1.05); /* Efecto de aumento ligero */
 }
 
-label:active{
-    background-color: #f1f0e8ba;
-}
+/* Cambiar color cuando el label está seleccionado */
+ input[type="radio"]:checked + label {
+    background-color: #AB886D;
+    color: black;
+    border-color: white;
+  }
+    
 
 input{
     display: none;
