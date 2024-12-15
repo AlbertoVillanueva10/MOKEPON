@@ -31,9 +31,9 @@ function iniciarJuego(){
 
 //3.- una vez que presionamos el boton "seleccionar"
 function seleccionarJugador(){
-    //cambiamos la propiedad a block para aparecer la seccion seleccionar ataque
+    //cambiamos la propiedad a flex para aparecer la seccion seleccionar ataque
     let sectionAtaque = document.getElementById('seleccionar-ataque')
-    sectionAtaque.style.display = 'block'
+    sectionAtaque.style.display = 'flex'
     //ocultamos la seccion seleccionar mascota
     let sectionMascota = document.getElementById('seleccionar-mascota')
     sectionMascota.style.display = 'none'
@@ -160,34 +160,44 @@ function revisarVidas(){
 
 //deshabilita los botones una vez que alguien perdio
 function finDelJuego(){
-    document.getElementById('boton-fuego').disabled = true
     document.getElementById('boton-agua').disabled = true
+    document.getElementById('boton-fuego').disabled = true
     document.getElementById('boton-tierra').disabled = true
+
     //creamos boton reiniciar
     let botonReiniciar = document.getElementById("boton-reiniciar")
     //reapaecemos el boton reiniciar
-    botonReiniciar.style.display = 'block'
+    botonReiniciar.style.display = 'flex'
     
 }
 
 function crearMensaje(resultado){
     //accedemos pos su id a la seccion que queremos modificar
-    let seccionMensaje = document.getElementById('mensajes')
-    //creamos el parrafo y decimos el tipo de elemento que queremos en este caso uno de tipo p
-    let parrafo = document.createElement('p')
-    //agregamos el parrraffo con el metodo innerHTML
-    parrafo.innerHTML = 'Tu mascota ataco con: ' + ataqueJugador + ', la mascota del enemigo ataco con: ' + ataqueEnemigo + ' --> ' + resultado
+    //id resultado es la seccion a la que queremos acceder
+    let sectionMensajes = document.getElementById('resultado')
+    let divAtaqueDelJugador = document.getElementById('ataque-del-jugador')
+    let divAtaqueDelEnemigo = document.getElementById('ataque-del-enemigo')
     
-    //agregamos el parafo accediendo al meodo de la seccion
-    seccionMensaje.appendChild(parrafo)
+    //creamos otra variable para parrafo que queremos agregar y decimos el tipo de elemento que queremos en este caso uno de tipo p
+    let nuevoAtaqueJugador = document.createElement('p')
+    let nuevoAtaqueEnemigo = document.createElement('p')
+
+    //agregamos el parrafo con el metodo innerHTML
+    sectionMensajes.innerHTML = resultado
+    nuevoAtaqueJugador.innerHTML = ataqueJugador
+    nuevoAtaqueEnemigo.innerHTML = ataqueEnemigo
+
+    // parrafo.innerHTML = 'Tu mascota ataco con: ' + ataqueJugador + ', la mascota del enemigo ataco con: ' + ataqueEnemigo + ' --> ' + resultado
+    
+    //agregamos el parafo accediendo al meodo de la seccion/div
+    divAtaqueDelJugador.appendChild(nuevoAtaqueJugador)
+    divAtaqueDelEnemigo.appendChild(nuevoAtaqueEnemigo)
     //document.body.appendChild(parrafo)
 }
 
 function crearMensajeFinal(resultadoFinal){
-    let seccionMensaje = document.getElementById('mensajes')
-    let parrafo = document.createElement('p')
-    parrafo.innerHTML = resultadoFinal
-    seccionMensaje.appendChild(parrafo)
+    let seccionMensaje = document.getElementById('resultado')
+    seccionMensaje.innerHTML = resultadoFinal
 }
 
 

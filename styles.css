@@ -13,6 +13,8 @@ body{
     font-optical-sizing: auto;
     font-weight: weight;
     font-style: normal;
+    font-size: 16px;
+    margin: 0 auto;
 }
 
 .contenedor {
@@ -25,10 +27,11 @@ body{
 .sub-containers{
     /* background-color: #608BC1; */
     display: flex;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 50%;
+    width: 500px;
+    height: 500px;
     margin: 0 auto;
     padding: 10px;
     background: url(./assets/background-nature-2.jpeg);
@@ -95,8 +98,9 @@ label:hover{
 
 /* Cambiar color cuando el label está seleccionado */
  input[type="radio"]:checked + label {
-    background-color: #AB886D;
-    color: black;
+    opacity: 1; /* Devuelve la imagen a su opacidad completa */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
+    transform: scale(1.05); /* Efecto de aumento ligero */
     border-color: white;
   }
     
@@ -107,24 +111,49 @@ input{
 
 button{
     margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: "Big Shoulders Stencil Display", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+    font-size: 1.1rem;
+
+    background-color: #1f509a7f;
+    color: white;
+
 }
 
 button:hover{
     cursor: pointer;
+    background-color: #1F509A;
 }
 
-#boton-mascota{
+/* #boton-mascota{
     background-color: #1F509A;
-    padding: 10px;
-    border-radius: 10px;
-    color: white;
 }
 
 #boton-mascota:hover{
     background-color: #1f509a7f;
 
+} */
+
+.container-mensajes{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #BCCCDC;
+    width: 200px;
+    padding: 10px;
+    margin-top: 10px;
+    opacity: .9;
+    border-radius: 10px;
 }
 
-body{
-    margin: 0 auto;
+#boton-reiniciar{
+    padding: 10px;
 }
+
+
+
