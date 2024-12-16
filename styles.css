@@ -30,8 +30,8 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 500px;
-    height: 500px;
+    width: 800px;
+    height: 800px;
     margin: 0 auto;
     padding: 10px;
     background: url(./assets/background-nature-2.jpeg);
@@ -66,7 +66,7 @@ body{
     flex-direction: column;
     align-items: center;
     background-color: transparent;
-    width: 100%;
+    width: 180px;
     /* height: 80px; */
     margin: 5px;
     border: 1px solid #9AA6B2;
@@ -110,6 +110,7 @@ input{
 }
 
 button{
+    width: 180px;
     margin: 10px;
     padding: 10px;
     border-radius: 10px;
@@ -155,5 +156,26 @@ button:hover{
     padding: 10px;
 }
 
+.botones-ataques{
+    display: flex;
+}
+
+.ataques{
+    display: grid;
+    grid-template-columns: 200px 200px;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+/* hasta 0-360px
+Dispositivos moviles */
+@media (max-width:360px) {
+    .tarjetas{
+        flex-direction: column;
+    }
+    .botones-ataques{
+        flex-direction: column;
+    }
+}
 
 
