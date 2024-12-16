@@ -42,10 +42,12 @@ body{
 
 .titulo{
     padding: 10px;
+    font-size: 2.5rem;
 }
 
 .subtitulo{
     margin: 30px;
+    font-size: 1.5rem;
 }
 
 .tarjetas{
@@ -118,7 +120,7 @@ button{
     font-optical-sizing: auto;
     font-weight: weight;
     font-style: normal;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
 
     background-color: #1f509a7f;
     color: white;
@@ -139,21 +141,32 @@ button:hover{
 
 } */
 
+p{
+    font-size: 1.9rem;
+    font-weight: 700;
+}
+
 .container-mensajes{
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     background-color: #BCCCDC;
-    width: 200px;
+    width: 360px;
     padding: 10px;
     margin-top: 10px;
     opacity: .9;
     border-radius: 10px;
 }
 
+.div-resultado{
+    display: flex;
+    text-align: center;
+}
+
 #boton-reiniciar{
     padding: 10px;
+    justify-content: center;
 }
 
 .botones-ataques{
@@ -165,6 +178,20 @@ button:hover{
     grid-template-columns: 200px 200px;
     justify-items: center;
     margin-top: 20px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.numero-vidas{
+    display: flex;
+    justify-content: space-around;
+    border: 4px dotted black;
+}
+
+#mascota-jugador,
+#mascota-enemigo
+{
+    color: antiquewhite;
 }
 
 /* hasta 0-360px
