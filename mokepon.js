@@ -200,7 +200,6 @@ function crearMensajeFinal(resultadoFinal){
     seccionMensaje.innerHTML = resultadoFinal
 }
 
-
 function reiniciarJuego(){
     window.location.reload();
 }
