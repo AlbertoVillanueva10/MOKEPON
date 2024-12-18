@@ -1,3 +1,35 @@
+//iniciarjuego
+const sectionAtaque = document.getElementById('seleccionar-ataque')
+const botonReiniciar = document.getElementById('boton-reiniciar')
+const seleccionarMascotaJugador = document.getElementById("boton-mascota")
+const botonAgua = document.getElementById('boton-agua')
+const botonFuego = document.getElementById('boton-fuego')
+const botonTierra = document.getElementById('boton-tierra')
+
+//seleccionarEnemigo
+const sectionMascota = document.getElementById('seleccionar-mascota')
+const inputHipodoge = document.getElementById('hipodoge')
+const inputCapipepo = document.getElementById('capipepo')
+const inputRatigueya = document.getElementById('ratigueya')
+const spanMascotaJugador = document.getElementById('mascota-jugador')
+
+//seleccioarEnemigo
+const spanMascotaEnemigo = document.getElementById('mascota-enemigo')
+
+//combate
+const spanVidasJugador = document.getElementById('vidas-jugador')
+const spanVidasEnemigo = document.getElementById('vidas-enemigo')
+
+//finDelJuego
+
+//crearMensaje
+const sectionMensajes = document.getElementById('resultado')
+const divAtaqueDelJugador = document.getElementById('ataque-del-jugador')
+const divAtaqueDelEnemigo = document.getElementById('ataque-del-enemigo')
+
+//crearMensajeFinal
+//let sectionMensajes = document.getElementById('resultado')
+
 let ataqueJugador
 let ataqueEnemigo
 let vidasJugador = 3
@@ -6,23 +38,23 @@ let vidasEnemigo = 3
 //2.-
 function iniciarJuego(){
     //ocultamos la seccion ataque hasta que el usuario haya seleccionado mascota
-    let sectionAtaque = document.getElementById('seleccionar-ataque')
+    
     sectionAtaque.style.display = 'none'
     //se oculta boton reiniciar tambien
-    let botonReiniciar = document.getElementById('boton-reiniciar')
+    
     botonReiniciar.style.display = 'none'
 
 //se declara la variable, se iguala al valor del objeto document, que a su vez ejecuta su metodo getelement, para acceder a la propiedad html a traves de su id
-    let seleccionarMascotaJugador = document.getElementById("boton-mascota")
+    
     //ahora a la variable creada, llamamos a su metodo addeventlistener para escuchar cuando de click, y mandamos llamar la funcion selecciona juador
     seleccionarMascotaJugador.addEventListener('click', seleccionarJugador)
 
     //8.- creamos las variables para interactuar con los botones de los ataques, y agregamos el escuchador, crendo su funcion
-    let botonAgua = document.getElementById('boton-agua')
+    
     botonAgua.addEventListener('click',ataqueAgua)
-    let botonFuego = document.getElementById('boton-fuego')
+    
     botonFuego.addEventListener('click',ataqueFuego)
-    let botonTierra = document.getElementById('boton-tierra')
+    
     botonTierra.addEventListener('click',ataqueTierra)
     //al presionarlo mandamos llamar a la funcion reiniciarJuego
     botonReiniciar.addEventListener('click',reiniciarJuego)
@@ -32,17 +64,17 @@ function iniciarJuego(){
 //3.- una vez que presionamos el boton "seleccionar"
 function seleccionarJugador(){
     //cambiamos la propiedad a flex para aparecer la seccion seleccionar ataque
-    let sectionAtaque = document.getElementById('seleccionar-ataque')
+    
     sectionAtaque.style.display = 'flex'
     //ocultamos la seccion seleccionar mascota
-    let sectionMascota = document.getElementById('seleccionar-mascota')
+    
     sectionMascota.style.display = 'none'
-    let inputHipodoge = document.getElementById('hipodoge')
-    let inputCapipepo = document.getElementById('capipepo')
-    let inputRatigueya = document.getElementById('ratigueya')
+    
+    
+    
 
     //4.- se crea var para agregar en el htmll utilizando la propiedad innerHTML y modificando su valor
-    let spanMascotaJugador = document.getElementById('mascota-jugador')
+    
 
     //el checked se utiliza para saber si el input esta seleccionado, y retorna TRUE or FALSE
     if(inputHipodoge.checked){ 
@@ -66,7 +98,7 @@ function seleccionarJugador(){
 function seleccionarEnemigo(){
     //creamos la variable que almacenara el valor de la funcion aleatorio
     let mascotaAleatorio = numeroAleatorio(1,3)
-    let spanMascotaEnemigo = document.getElementById('mascota-enemigo')
+    
 
     if(mascotaAleatorio == 1){
         //7.- se mmodifica el html de la mascota del enemigo
@@ -125,8 +157,8 @@ function ataqueDelEnemigo(){
 //creamos funcion para separar la logica del ataque, y ahhi mandamos llamar a la funcion que cree el mensaje dell ganador
 function combate(){
     //creamos las variables para acceder al span de vidas
-    let spanVidasJugador = document.getElementById('vidas-jugador')
-    let spanVidasEnemigo = document.getElementById('vidas-enemigo')
+    
+    
 
     if(ataqueJugador == ataqueEnemigo){
         //se pasan los arrgumentos con el resultado directamente a la funcion para ser utilizados con su valor final
@@ -160,12 +192,15 @@ function revisarVidas(){
 
 //deshabilita los botones una vez que alguien perdio
 function finDelJuego(){
-    document.getElementById('boton-agua').disabled = true
-    document.getElementById('boton-fuego').disabled = true
-    document.getElementById('boton-tierra').disabled = true
+    
+    botonAgua.disabled = true   
+    
+    botonFuego.disabled = true
+    
+    botonTierra.disabled = true
 
     //creamos boton reiniciar
-    let botonReiniciar = document.getElementById("boton-reiniciar")
+    
     //reapaecemos el boton reiniciar
     botonReiniciar.style.display = 'flex'
     
@@ -174,9 +209,9 @@ function finDelJuego(){
 function crearMensaje(resultado){
     //accedemos pos su id a la seccion que queremos modificar
     //id resultado es la seccion a la que queremos acceder
-    let sectionMensajes = document.getElementById('resultado')
-    let divAtaqueDelJugador = document.getElementById('ataque-del-jugador')
-    let divAtaqueDelEnemigo = document.getElementById('ataque-del-enemigo')
+    
+    
+    
     
     //creamos otra variable para parrafo que queremos agregar y decimos el tipo de elemento que queremos en este caso uno de tipo p
     let nuevoAtaqueJugador = document.createElement('p')
@@ -196,9 +231,10 @@ function crearMensaje(resultado){
 }
 
 function crearMensajeFinal(resultadoFinal){
-    let seccionMensaje = document.getElementById('resultado')
-    seccionMensaje.innerHTML = resultadoFinal
+    
+    sectionMensajes.innerHTML = resultadoFinal
 }
+
 
 function reiniciarJuego(){
     window.location.reload();
