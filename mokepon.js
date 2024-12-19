@@ -30,6 +30,8 @@ const divAtaqueDelEnemigo = document.getElementById('ataque-del-enemigo')
 //crearMensajeFinal
 //let sectionMensajes = document.getElementById('resultado')
 
+//Arreglo
+let mokepones = []
 let ataqueJugador
 let ataqueEnemigo
 let vidasJugador = 3
@@ -43,16 +45,23 @@ class Mokepon{
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
+        //no va en el constructor ya que, no queremos que sea parte de todos los objetos sino que se mannipule diferente
+        this.ataques = []
     }
 }
 
 //objetos
 //usando el constructor para crear objetos de la clase Mokepon
 
+//objetos instancia
 let hipodoge = new Mokepon('Hipodoge', './assets/mokepon-agua.png', 5)
 let capipepo = new Mokepon('Capipepo', './assets/mokepon-tierra.png', 5)
 let ratigueya = new Mokepon('Ratigueya', './assets/mokepon-fuego.png', 5)
 
+mokepones.push(hipodoge,capipepo,ratigueya)
+
+//objetos iterarios 
+//hipodoge.ataques.push()
 //2.-
 function iniciarJuego(){
     //ocultamos la seccion ataque hasta que el usuario haya seleccionado mascota
