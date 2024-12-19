@@ -35,6 +35,24 @@ let ataqueEnemigo
 let vidasJugador = 3
 let vidasEnemigo = 3
 
+
+//agregando class, siempre empieza con mayuscula
+//El plano o molde para creacion de objetos
+class Mokepon{
+    constructor(nombre, foto, vida){
+        this.nombre = nombre
+        this.foto = foto
+        this.vida = vida
+    }
+}
+
+//objetos
+//usando el constructor para crear objetos de la clase Mokepon
+
+let hipodoge = new Mokepon('Hipodoge', './assets/mokepon-agua.png', 5)
+let capipepo = new Mokepon('Capipepo', './assets/mokepon-tierra.png', 5)
+let ratigueya = new Mokepon('Ratigueya', './assets/mokepon-fuego.png', 5)
+
 //2.-
 function iniciarJuego(){
     //ocultamos la seccion ataque hasta que el usuario haya seleccionado mascota
@@ -78,13 +96,13 @@ function seleccionarJugador(){
 
     //el checked se utiliza para saber si el input esta seleccionado, y retorna TRUE or FALSE
     if(inputHipodoge.checked){ 
-        spanMascotaJugador.innerHTML = "Hipodoge"
+        spanMascotaJugador.innerHTML = "Squirtle"
     }
     else if(inputCapipepo.checked){
-        spanMascotaJugador.innerHTML = "Capipepo"
+        spanMascotaJugador.innerHTML = "Bulbasaur"
     }
     else if(inputRatigueya.checked){
-        spanMascotaJugador.innerHTML = "Ratigueya"
+        spanMascotaJugador.innerHTML = "Charmander"
     }
     else{
         alert("Selecciona una Mascota para continuar")
@@ -102,11 +120,11 @@ function seleccionarEnemigo(){
 
     if(mascotaAleatorio == 1){
         //7.- se mmodifica el html de la mascota del enemigo
-        spanMascotaEnemigo.innerHTML = 'Hipodoge'
+        spanMascotaEnemigo.innerHTML = 'Squirtle'
     }else if(mascotaAleatorio == 2){
-        spanMascotaEnemigo.innerHTML = 'Capipepo'
+        spanMascotaEnemigo.innerHTML = 'Bulbasaur'
     }else
-        spanMascotaEnemigo.innerHTML = 'Ratigueya'
+        spanMascotaEnemigo.innerHTML = 'Charmander'
         
 }
 
