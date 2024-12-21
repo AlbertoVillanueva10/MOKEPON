@@ -26,12 +26,14 @@ const spanVidasEnemigo = document.getElementById('vidas-enemigo')
 const sectionMensajes = document.getElementById('resultado')
 const divAtaqueDelJugador = document.getElementById('ataque-del-jugador')
 const divAtaqueDelEnemigo = document.getElementById('ataque-del-enemigo')
-
+const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
 //crearMensajeFinal
 //let sectionMensajes = document.getElementById('resultado')
 
-//Arreglo
+//Arreglo que almacena la cantidad de mokepones
 let mokepones = []
+//genera la representacion visual y por lo tanto dinamica de html desde js
+let opcionDeMokepones 
 let ataqueJugador
 let ataqueEnemigo
 let vidasJugador = 3
@@ -58,7 +60,8 @@ let hipodoge = new Mokepon('Hipodoge', './assets/mokepon-agua.png', 5)
 let capipepo = new Mokepon('Capipepo', './assets/mokepon-tierra.png', 5)
 let ratigueya = new Mokepon('Ratigueya', './assets/mokepon-fuego.png', 5)
 
-mokepones.push(hipodoge,capipepo,ratigueya)
+//almacena la informacion de los mokepoes
+//mokepones.push(hipodoge,capipepo,ratigueya)
 
 //objetos iterarios 
 hipodoge.ataques.push(
@@ -85,6 +88,10 @@ ratigueya.ataques.push(
     {nombre: '🌱', id: 'boton-tierra'},
 )
 //hipodoge.ataques.push()
+
+//agregamos la informacion de los objetos al arreglo principal
+mokepones.push(hipodoge,capipepo,ratigueya)
+
 //2.-
 function iniciarJuego(){
     //ocultamos la seccion ataque hasta que el usuario haya seleccionado mascota
@@ -92,6 +99,19 @@ function iniciarJuego(){
     sectionAtaque.style.display = 'none'
     //se oculta boton reiniciar tambien
     
+    //agregamos de manera dinamica el codigo de tarjetas en HTML pero desde JS
+    mokepones.forEach((mokepon) => {
+        opcionDeMokepones = `
+        <input type="radio" name="mascota" id="${mokepon.nombre}">
+            <label class="caja-label" for="${mokepon.nombre}">
+                <p>${mokepon.nombre}</p>
+                <img src="${mokepon.foto}" alt="${mokepon.nombre}">
+            </label>`
+
+            //se inyecta el ccodigo js obtenido de html con el resultado del id de manera dinamic, y se agrega el += para que agregue todos los valores del forEach
+            contenedorTarjetas.innerHTML += opcionDeMokepones
+    })
+
     botonReiniciar.style.display = 'none'
 
 //se declara la variable, se iguala al valor del objeto document, que a su vez ejecuta su metodo getelement, para acceder a la propiedad html a traves de su id
