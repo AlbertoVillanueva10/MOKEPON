@@ -8,9 +8,6 @@ const botonTierra = document.getElementById('boton-tierra')
 
 //seleccionarEnemigo
 const sectionMascota = document.getElementById('seleccionar-mascota')
-const inputHipodoge = document.getElementById('hipodoge')
-const inputCapipepo = document.getElementById('capipepo')
-const inputRatigueya = document.getElementById('ratigueya')
 const spanMascotaJugador = document.getElementById('mascota-jugador')
 
 //seleccioarEnemigo
@@ -36,6 +33,10 @@ let mokepones = []
 let opcionDeMokepones 
 let ataqueJugador
 let ataqueEnemigo
+//inicializamos a este punto para evitar el error de injeccion de js en lineas anteriores por no encontrar su valor en html
+let inputHipodoge 
+let inputCapipepo 
+let inputRatigueya 
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -110,6 +111,12 @@ function iniciarJuego(){
 
             //se inyecta el ccodigo js obtenido de html con el resultado del id de manera dinamic, y se agrega el += para que agregue todos los valores del forEach
             contenedorTarjetas.innerHTML += opcionDeMokepones
+
+        //una vez que se crean los personajes, accedemos a ellos a traves de su id, no antes
+        inputHipodoge = document.getElementById('Hipodoge')
+        inputCapipepo = document.getElementById('Capipepo')
+        inputRatigueya = document.getElementById('Ratigueya')
+
     })
 
     botonReiniciar.style.display = 'none'
