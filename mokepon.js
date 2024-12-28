@@ -147,12 +147,8 @@ function seleccionarMascotaJugador(){
     
     sectionMascota.style.display = 'none'
     
-    
-    
-
     //4.- se crea var para agregar en el htmll utilizando la propiedad innerHTML y modificando su valor
     
-
     //el checked se utiliza para saber si el input esta seleccionado, y retorna TRUE or FALSE
     if(inputHipodoge.checked){ 
 
