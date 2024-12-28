@@ -1,12 +1,12 @@
 //iniciarjuego
 const sectionAtaque = document.getElementById('seleccionar-ataque')
 const botonReiniciar = document.getElementById('boton-reiniciar')
-const seleccionarMascotaJugador = document.getElementById("boton-mascota")
+const botonMascotaJugador = document.getElementById("boton-mascota")
 const botonAgua = document.getElementById('boton-agua')
 const botonFuego = document.getElementById('boton-fuego')
 const botonTierra = document.getElementById('boton-tierra')
 
-//seleccionarEnemigo
+//seleccionarMascotaEnemigo
 const sectionMascota = document.getElementById('seleccionar-mascota')
 const spanMascotaJugador = document.getElementById('mascota-jugador')
 
@@ -124,7 +124,7 @@ function iniciarJuego(){
 //se declara la variable, se iguala al valor del objeto document, que a su vez ejecuta su metodo getelement, para acceder a la propiedad html a traves de su id
     
     //ahora a la variable creada, llamamos a su metodo addeventlistener para escuchar cuando de click, y mandamos llamar la funcion selecciona juador
-    seleccionarMascotaJugador.addEventListener('click', seleccionarJugador)
+    botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
 
     //8.- creamos las variables para interactuar con los botones de los ataques, y agregamos el escuchador, crendo su funcion
     
@@ -139,7 +139,7 @@ function iniciarJuego(){
 }
 
 //3.- una vez que presionamos el boton "seleccionar"
-function seleccionarJugador(){
+function seleccionarMascotaJugador(){
     //cambiamos la propiedad a flex para aparecer la seccion seleccionar ataque
     
     sectionAtaque.style.display = 'flex'
@@ -155,35 +155,38 @@ function seleccionarJugador(){
 
     //el checked se utiliza para saber si el input esta seleccionado, y retorna TRUE or FALSE
     if(inputHipodoge.checked){ 
-        spanMascotaJugador.innerHTML = "Squirtle"
+
+        //spanMascotaJugador.innerHTML = "Squirtle"
+        spanMascotaJugador.innerHTML = inputHipodoge.id
     }
     else if(inputCapipepo.checked){
-        spanMascotaJugador.innerHTML = "Bulbasaur"
+        spanMascotaJugador.innerHTML = inputCapipepo.id
     }
     else if(inputRatigueya.checked){
-        spanMascotaJugador.innerHTML = "Charmander"
+        spanMascotaJugador.innerHTML = inputRatigueya.id
     }
     else{
         alert("Selecciona una Mascota para continuar")
     }
     //5.- mandamos llamar a la funcion justo despues de seleccionar el la mascota-jugador
-    seleccionarEnemigo()
+    seleccionarMascotaEnemigo()
     
 }
 
 //6.- creamos la funcion de enemigo
-function seleccionarEnemigo(){
+function seleccionarMascotaEnemigo(){
     //creamos la variable que almacenara el valor de la funcion aleatorio
-    let mascotaAleatorio = numeroAleatorio(1,3)
+    let mascotaAleatorio = numeroAleatorio(1,mokepones.length -1)
     
-
-    if(mascotaAleatorio == 1){
-        //7.- se mmodifica el html de la mascota del enemigo
-        spanMascotaEnemigo.innerHTML = 'Squirtle'
-    }else if(mascotaAleatorio == 2){
-        spanMascotaEnemigo.innerHTML = 'Bulbasaur'
-    }else
-        spanMascotaEnemigo.innerHTML = 'Charmander'
+    //se modifica a solo esta linea, en lugar de las validaciones posteriores, accediendo directamente a la posicion del arreglo de manera dinamica
+    spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatorio].nombre
+    // if(mascotaAleatorio == 1){
+    //     //7.- se mmodifica el html de la mascota del enemigo
+    //     spanMascotaEnemigo.innerHTML = 'Squirtle'
+    // }else if(mascotaAleatorio == 2){
+    //     spanMascotaEnemigo.innerHTML = 'Bulbasaur'
+    // }else
+    //     spanMascotaEnemigo.innerHTML = 'Charmander'
         
 }
 
