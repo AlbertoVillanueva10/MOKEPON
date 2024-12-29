@@ -37,6 +37,7 @@ let ataqueEnemigo
 let inputHipodoge 
 let inputCapipepo 
 let inputRatigueya 
+let mascotaJugador
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -151,22 +152,43 @@ function seleccionarMascotaJugador(){
     
     //el checked se utiliza para saber si el input esta seleccionado, y retorna TRUE or FALSE
     if(inputHipodoge.checked){ 
-
         //spanMascotaJugador.innerHTML = "Squirtle"
         spanMascotaJugador.innerHTML = inputHipodoge.id
+        //agregamos el valor del id a la nueva var mascotaJugador
+        mascotaJugador = inputHipodoge.id
     }
     else if(inputCapipepo.checked){
         spanMascotaJugador.innerHTML = inputCapipepo.id
+        mascotaJugador = inputCapipepo.id
     }
     else if(inputRatigueya.checked){
         spanMascotaJugador.innerHTML = inputRatigueya.id
+        mascotaJugador = inputRatigueya.id
     }
     else{
         alert("Selecciona una Mascota para continuar")
     }
+
+    extraerAtaques(mascotaJugador)
     //5.- mandamos llamar a la funcion justo despues de seleccionar el la mascota-jugador
     seleccionarMascotaEnemigo()
     
+}
+
+//se crea funcion para mostrar ataques del jugador, a traves del arreglo mokepones
+function extraerAtaques(mascotaJugador){
+    let ataques 
+    for (let i = 0; i < mokepones.length; i++) {
+        if(mascotaJugador === mokepones[i].nombre){
+            ataques = mokepones[i].ataques
+        }
+    }
+    console.log(ataques)
+    mostrarAtaques(ataques)
+}
+
+function mostrarAtaques(ataques){
+    console.log("hola mundo")
 }
 
 //6.- creamos la funcion de enemigo
