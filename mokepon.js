@@ -2,9 +2,13 @@
 const sectionAtaque = document.getElementById('seleccionar-ataque')
 const botonReiniciar = document.getElementById('boton-reiniciar')
 const botonMascotaJugador = document.getElementById("boton-mascota")
-const botonAgua = document.getElementById('boton-agua')
-const botonFuego = document.getElementById('boton-fuego')
-const botonTierra = document.getElementById('boton-tierra')
+
+/**
+ * se eliminan de html para agregarlos dinamicamente
+let botonAgua = document.getElementById('boton-agua')
+let botonFuego = document.getElementById('boton-fuego')
+let botonTierra = document.getElementById('boton-tierra')
+ */
 
 //seleccionarMascotaEnemigo
 const sectionMascota = document.getElementById('seleccionar-mascota')
@@ -24,6 +28,7 @@ const sectionMensajes = document.getElementById('resultado')
 const divAtaqueDelJugador = document.getElementById('ataque-del-jugador')
 const divAtaqueDelEnemigo = document.getElementById('ataque-del-enemigo')
 const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
+const contenedorAtaques = document.getElementById("contenedor-ataques")
 //crearMensajeFinal
 //let sectionMensajes = document.getElementById('resultado')
 
@@ -31,13 +36,22 @@ const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
 let mokepones = []
 //genera la representacion visual y por lo tanto dinamica de html desde js
 let opcionDeMokepones 
-let ataqueJugador
+let ataqueJugador = []
 let ataqueEnemigo
 //inicializamos a este punto para evitar el error de injeccion de js en lineas anteriores por no encontrar su valor en html
 let inputHipodoge 
 let inputCapipepo 
 let inputRatigueya 
 let mascotaJugador
+//seccion botones ataques dinamicos
+//var para almacenar los ataques del mokepon
+let ataquesMokepon
+let botonAgua 
+let botonFuego 
+let botonTierra
+//nuevo arreglo para guardar los botones y sus id *
+let botones = []
+
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -105,13 +119,13 @@ function iniciarJuego(){
     mokepones.forEach((mokepon) => {
         opcionDeMokepones = `
         <input type="radio" name="mascota" id="${mokepon.nombre}">
-            <label class="caja-label" for="${mokepon.nombre}">
-                <p>${mokepon.nombre}</p>
-                <img src="${mokepon.foto}" alt="${mokepon.nombre}">
-            </label>`
+        <label class="caja-label" for="${mokepon.nombre}">
+            <p>${mokepon.nombre}</p>
+            <img src="${mokepon.foto}" alt="${mokepon.nombre}">
+        </label>`
 
-            //se inyecta el ccodigo js obtenido de html con el resultado del id de manera dinamic, y se agrega el += para que agregue todos los valores del forEach
-            contenedorTarjetas.innerHTML += opcionDeMokepones
+        //se inyecta el ccodigo js obtenido de html con el resultado del id de manera dinamica, y se agrega el += para que agregue todos los valores del forEach
+        contenedorTarjetas.innerHTML += opcionDeMokepones
 
         //una vez que se crean los personajes, accedemos a ellos a traves de su id, no antes
         inputHipodoge = document.getElementById('Hipodoge')
@@ -129,14 +143,8 @@ function iniciarJuego(){
 
     //8.- creamos las variables para interactuar con los botones de los ataques, y agregamos el escuchador, crendo su funcion
     
-    botonAgua.addEventListener('click',ataqueAgua)
-    
-    botonFuego.addEventListener('click',ataqueFuego)
-    
-    botonTierra.addEventListener('click',ataqueTierra)
     //al presionarlo mandamos llamar a la funcion reiniciarJuego
     botonReiniciar.addEventListener('click',reiniciarJuego)
-
 }
 
 //3.- una vez que presionamos el boton "seleccionar"
@@ -183,12 +191,62 @@ function extraerAtaques(mascotaJugador){
             ataques = mokepones[i].ataques
         }
     }
-    console.log(ataques)
+    //console.log(ataques)
     mostrarAtaques(ataques)
 }
 
 function mostrarAtaques(ataques){
-    console.log("hola mundo")
+    // for (let i = 0; i < ataques.length; i++) {
+    //     const element = ataques[i].id;
+    //     console.log(element)
+    // }
+
+    ataques.forEach((ataque) => {
+        ataquesMokepon = `
+            <button class="btnAtaque BAtaque" id=${ataque.id}>${ataque.nombre}</button>
+        `
+
+        //se agregan los botones dinamicamente desde js
+        contenedorAtaques.innerHTML += ataquesMokepon
+    })
+    //traemos los botones y sus metodos de click para que los detecte una vez creados dinamicamente
+    botonAgua = document.getElementById('boton-agua')
+    botonFuego = document.getElementById('boton-fuego')
+    botonTierra = document.getElementById('boton-tierra')
+    //se manda llamar todos los elementos con BAtaque que se agrega en la injeccion, pero con un . ya que es una clase
+    botones = document.querySelectorAll('.BAtaque')
+    console.log(botones)
+    /**De igual manera esta parte ya no es necesaria
+    botonAgua.addEventListener('click',ataqueAgua)
+    botonFuego.addEventListener('click',ataqueFuego)
+    botonTierra.addEventListener('click',ataqueTierra)
+     */
+    
+
+}
+
+//se crea una nueva funcion
+function secuenciaAtaque(){
+    //en el arreglo botones, por cada boton se ejecuta un arrow function
+    botones.forEach((boton) => {
+        //enseguida al boton en si, se le agrega el evento click y se accede a el a traves del mismo evento
+        boton.addEventListener('click', (e) => {
+            if(e.target.innerText === '🔥'){
+                ataqueJugador.push("FUEGO")
+                console.log(ataqueJugador)
+                boton.style.background = '#ffff'
+            }else if(e.target.innerText === '💧'){
+                ataqueJugador.push("AGUA")
+                console.log(ataqueJugador)
+                boton.style.background = '#ffff'
+            }else{
+                ataqueJugador.push("TIERRA")
+                console.log(ataqueJugador)
+                boton.style.background = '#ffff'
+            }
+        })
+    })
+
 }
 
 //6.- creamos la funcion de enemigo
@@ -205,9 +263,13 @@ function seleccionarMascotaEnemigo(){
     //     spanMascotaEnemigo.innerHTML = 'Bulbasaur'
     // }else
     //     spanMascotaEnemigo.innerHTML = 'Charmander'
+
+    secuenciaAtaque()
         
 }
 
+/**
+ * Se comenta esto porque ya no es necesario
 //8.- se crean las funciones para cada ataque, y se modifican segun su eleccion 
 function ataqueAgua(){
     ataqueJugador = 'AGUA'
@@ -227,6 +289,7 @@ function ataqueTierra(){
     //alert('Elegiste: ' + ataqueJugador)
     ataqueDelEnemigo(ataqueJugador)
 }
+*/
 
 //9.-se crea la funcion para elegir el ataque del enemigo
 function ataqueDelEnemigo(){
