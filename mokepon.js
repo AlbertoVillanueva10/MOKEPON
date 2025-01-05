@@ -37,7 +37,9 @@ let mokepones = []
 //genera la representacion visual y por lo tanto dinamica de html desde js
 let opcionDeMokepones 
 let ataqueJugador = []
-let ataqueEnemigo
+let ataqueEnemigo = []
+let indexAtaqueJugador
+let indexAtaqueEnemigo
 //inicializamos a este punto para evitar el error de injeccion de js en lineas anteriores por no encontrar su valor en html
 let inputHipodoge 
 let inputCapipepo 
@@ -46,6 +48,7 @@ let mascotaJugador
 //seccion botones ataques dinamicos
 //var para almacenar los ataques del mokepon
 let ataquesMokepon
+let ataquesMokeponEnemigo
 let botonAgua 
 let botonFuego 
 let botonTierra
@@ -221,8 +224,6 @@ function mostrarAtaques(ataques){
     botonFuego.addEventListener('click',ataqueFuego)
     botonTierra.addEventListener('click',ataqueTierra)
      */
-    
-
 }
 
 //se crea una nueva funcion
@@ -234,16 +235,17 @@ function secuenciaAtaque(){
             if(e.target.innerText === '🔥'){
                 ataqueJugador.push("FUEGO")
                 console.log(ataqueJugador)
-                boton.style.background = '#ffff'
+                boton.style.disabled
             }else if(e.target.innerText === '💧'){
                 ataqueJugador.push("AGUA")
                 console.log(ataqueJugador)
-                boton.style.background = '#ffff'
+                boton.style.disabled
             }else{
                 ataqueJugador.push("TIERRA")
                 console.log(ataqueJugador)
-                boton.style.background = '#ffff'
+                boton.style.disabled
             }
+            ataqueDelEnemigo()
         })
     })
 
@@ -256,71 +258,70 @@ function seleccionarMascotaEnemigo(){
     
     //se modifica a solo esta linea, en lugar de las validaciones posteriores, accediendo directamente a la posicion del arreglo de manera dinamica
     spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatorio].nombre
-    // if(mascotaAleatorio == 1){
-    //     //7.- se mmodifica el html de la mascota del enemigo
-    //     spanMascotaEnemigo.innerHTML = 'Squirtle'
-    // }else if(mascotaAleatorio == 2){
-    //     spanMascotaEnemigo.innerHTML = 'Bulbasaur'
-    // }else
-    //     spanMascotaEnemigo.innerHTML = 'Charmander'
-
+    ataquesMokeponEnemigo = mokepones[mascotaAleatorio].ataques
     secuenciaAtaque()
         
 }
 
-/**
- * Se comenta esto porque ya no es necesario
-//8.- se crean las funciones para cada ataque, y se modifican segun su eleccion 
-function ataqueAgua(){
-    ataqueJugador = 'AGUA'
-    //alert('Elegiste: ' + ataqueJugador)
-    //10.- inmediatamente llamamos la funcion del ataque del enemigo
-    ataqueDelEnemigo(ataqueJugador)
-}
-
-function ataqueFuego(){
-    ataqueJugador = 'FUEGO'
-    //alert('Elegiste: ' + ataqueJugador)
-    ataqueDelEnemigo(ataqueJugador)
-}
-
-function ataqueTierra(){
-    ataqueJugador = 'TIERRA'
-    //alert('Elegiste: ' + ataqueJugador)
-    ataqueDelEnemigo(ataqueJugador)
-}
-*/
-
 //9.-se crea la funcion para elegir el ataque del enemigo
 function ataqueDelEnemigo(){
-    let ataqueAleatorio = numeroAleatorio(1,3)
+    //quitamos el hardcode y agregamos directamente la informacion desde la variable del enemigo 
+    let ataqueAleatorio = numeroAleatorio(0,ataquesMokeponEnemigo.length -1 )
     //let spanAtaqueEnemigo = document.getElementById('ataque-enemigo')
 
-    if(ataqueAleatorio == 1){
-        ataqueEnemigo = "FUEGO"
+    if(ataqueAleatorio == 0 || ataqueAleatorio == 1){
+        ataqueEnemigo.push("FUEGO")
        // alert("El ataque del enemigo fue: " + ataqueEnemigo)
        // spanAtaqueEnemigo.innerHTML = ataqueEnemigo
     }
-    else if(ataqueAleatorio == 2){
-        ataqueEnemigo = "AGUA"
+    else if(ataqueAleatorio == 3 || ataqueAleatorio == 4){
+        ataqueEnemigo.push("AGUA")
         //alert("El ataque del enemigo fue: " + ataqueEnemigo)
         //spanAtaqueEnemigo.innerHTML = ataqueEnemigo
     }
     else {
-        ataqueEnemigo = "TIERRA"
+        ataqueEnemigo.push("TIERRA")
         //alert("El ataque del enemigo fue: " + ataqueEnemigo)
         //spanAtaqueEnemigo.innerHTML = ataqueEnemigo
     }
+    console.log(ataqueEnemigo)
     //mandamos llamar la funcion combate, y ahi utilizamos la de crearmensaje()
+    iniciarPelea()
+}
+
+function iniciarPelea(){
+    if(ataqueJugador.length === 5)
     combate()
+}
+
+function indexAmbosOponentes(jugador, enemigo){
+    indexAtaqueJugador = ataqueJugador[jugador]
+    indexAtaqueEnemigo = ataqueEnemigo[enemigo]
 }
 
 //creamos funcion para separar la logica del ataque, y ahhi mandamos llamar a la funcion que cree el mensaje dell ganador
 function combate(){
+    for (let i = 0; i < ataqueJugador.length; i++) {
+        if(ataqueJugador[i] === ataqueEnemigo[i]){
+            console.log(ataqueJugador[i])
+            indexAmbosOponentes(i,i)
+            crearMensaje("EMPATE 😒")
+        }
+        else if(ataqueJugador[i] == "FUEGO" && ataqueEnemigo[i] == "TIERRA" || ataqueJugador[i] == "AGUA" && ataqueEnemigo[i] == "FUEGO" || ataqueJugador[i] == "TIERRA" && ataqueEnemigo[i] == "AGUA"){
+            indexAmbosOponentes(i,i)
+            crearMensaje("GANASTE!! 🏆")
+            vidasEnemigo--
+            spanVidasEnemigo.innerHTML = vidasEnemigo
+        }
+        else{
+            indexAmbosOponentes(i,i)
+            crearMensaje("PERDISTE 😭")
+            vidasJugador--
+            spanVidasJugador.innerHTML = vidasJugador
+        }
+    }
+    /**
     //creamos las variables para acceder al span de vidas
-    
-    
-
     if(ataqueJugador == ataqueEnemigo){
         //se pasan los arrgumentos con el resultado directamente a la funcion para ser utilizados con su valor final
         crearMensaje("EMPATE 😒")
@@ -335,18 +336,24 @@ function combate(){
         vidasJugador--
         spanVidasJugador.innerHTML = vidasJugador
     }
+    */
 
     revisarVidas()
 }
 
 function revisarVidas(){
     //validamos las vidas del jugador y enemigo en esta funcion 
-    if(vidasJugador == 0){
+    if(vidasJugador < vidasEnemigo){
         crearMensajeFinal("Lo sentimos, perdiste, intenta nuevamente 🥹")
         //manda llamar a la funcion finDelJuego
         finDelJuego()
-    }else if(vidasEnemigo == 0){
+    }else if(vidasEnemigo < vidasJugador){
         crearMensajeFinal("Felicidades, GANASTE! el juego ha llegado a su fin 🥳")
+        finDelJuego()
+
+    }else
+    {
+        crearMensajeFinal("Empate, sigue intentando 😒")
         finDelJuego()
     }
 }
@@ -355,15 +362,13 @@ function revisarVidas(){
 function finDelJuego(){
     
     botonAgua.disabled = true   
-    
     botonFuego.disabled = true
-    
     botonTierra.disabled = true
-
     //creamos boton reiniciar
     
     //reapaecemos el boton reiniciar
     botonReiniciar.style.display = 'flex'
+    console.log("Funcion fin del juego")
     
 }
 
@@ -371,17 +376,16 @@ function crearMensaje(resultado){
     //accedemos pos su id a la seccion que queremos modificar
     //id resultado es la seccion a la que queremos acceder
     
-    
-    
-    
     //creamos otra variable para parrafo que queremos agregar y decimos el tipo de elemento que queremos en este caso uno de tipo p
     let nuevoAtaqueJugador = document.createElement('p')
     let nuevoAtaqueEnemigo = document.createElement('p')
 
     //agregamos el parrafo con el metodo innerHTML
     sectionMensajes.innerHTML = resultado
-    nuevoAtaqueJugador.innerHTML = ataqueJugador
-    nuevoAtaqueEnemigo.innerHTML = ataqueEnemigo
+    //se modifican estas variables con las de los index de cada arreglo
+    nuevoAtaqueJugador.innerHTML = indexAtaqueJugador
+    nuevoAtaqueEnemigo.innerHTML = indexAtaqueEnemigo
+    
 
     // parrafo.innerHTML = 'Tu mascota ataco con: ' + ataqueJugador + ', la mascota del enemigo ataco con: ' + ataqueEnemigo + ' --> ' + resultado
     
