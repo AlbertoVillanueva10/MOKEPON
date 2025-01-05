@@ -133,7 +133,7 @@ button:hover{
 }
 
 .btn-ataques{
-    width: 140px;
+    width: 80px;
     background-color: #1F509A;
 }
 
@@ -154,6 +154,8 @@ button:hover{
 p{
     font-size: 1.9rem;
     font-weight: 700;
+    display: flex;
+    justify-content: space-around;
 }
 
 .container-mensajes{
