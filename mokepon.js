@@ -41,9 +41,9 @@ let ataqueEnemigo = []
 let indexAtaqueJugador
 let indexAtaqueEnemigo
 //inicializamos a este punto para evitar el error de injeccion de js en lineas anteriores por no encontrar su valor en html
-let inputHipodoge 
-let inputCapipepo 
-let inputRatigueya 
+let inputSquirtle 
+let inputBulbasaur 
+let inputCharmander 
 let mascotaJugador
 //seccion botones ataques dinamicos
 //var para almacenar los ataques del mokepon
@@ -54,7 +54,8 @@ let botonFuego
 let botonTierra
 //nuevo arreglo para guardar los botones y sus id *
 let botones = []
-
+let victoriasJugador = 0
+let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -75,15 +76,15 @@ class Mokepon{
 //usando el constructor para crear objetos de la clase Mokepon
 
 //objetos instancia
-let hipodoge = new Mokepon('Hipodoge', './assets/mokepon-agua.png', 5)
-let capipepo = new Mokepon('Capipepo', './assets/mokepon-tierra.png', 5)
-let ratigueya = new Mokepon('Ratigueya', './assets/mokepon-fuego.png', 5)
+let squirtle = new Mokepon('Squirtle', './assets/mokepon-agua.png', 5)
+let bulbasaur = new Mokepon('Bulbasaur', './assets/mokepon-tierra.png', 5)
+let charmander = new Mokepon('Charmander', './assets/mokepon-fuego.png', 5)
 
 //almacena la informacion de los mokepoes
-//mokepones.push(hipodoge,capipepo,ratigueya)
+//mokepones.push(Squirtle,Bulbasaur,Charmander)
 
 //objetos iterarios 
-hipodoge.ataques.push(
+squirtle.ataques.push(
     {nombre: '💧', id: 'boton-agua'},
     {nombre: '💧', id: 'boton-agua'},
     {nombre: '💧', id: 'boton-agua'},
@@ -91,7 +92,7 @@ hipodoge.ataques.push(
     {nombre: '🌱', id: 'boton-tierra'},
 )
 
-capipepo.ataques.push(
+bulbasaur.ataques.push(
     {nombre: '🌱', id: 'boton-tierra'},
     {nombre: '🌱', id: 'boton-tierra'},
     {nombre: '🌱', id: 'boton-tierra'},
@@ -99,17 +100,17 @@ capipepo.ataques.push(
     {nombre: '🔥', id: 'boton-fuego'},
 )
 
-ratigueya.ataques.push(
+charmander.ataques.push(
     {nombre: '🔥', id: 'boton-fuego'},
     {nombre: '🔥', id: 'boton-fuego'},
     {nombre: '🔥', id: 'boton-fuego'},
     {nombre: '💧', id: 'boton-agua'},
     {nombre: '🌱', id: 'boton-tierra'},
 )
-//hipodoge.ataques.push()
+//squirtle.ataques.push()
 
 //agregamos la informacion de los objetos al arreglo principal
-mokepones.push(hipodoge,capipepo,ratigueya)
+mokepones.push(squirtle,bulbasaur,charmander)
 
 //2.-
 function iniciarJuego(){
@@ -131,9 +132,9 @@ function iniciarJuego(){
         contenedorTarjetas.innerHTML += opcionDeMokepones
 
         //una vez que se crean los personajes, accedemos a ellos a traves de su id, no antes
-        inputHipodoge = document.getElementById('Hipodoge')
-        inputCapipepo = document.getElementById('Capipepo')
-        inputRatigueya = document.getElementById('Ratigueya')
+        inputSquirtle = document.getElementById('Squirtle')
+        inputBulbasaur = document.getElementById('Bulbasaur')
+        inputCharmander = document.getElementById('Charmander')
 
     })
 
@@ -162,19 +163,19 @@ function seleccionarMascotaJugador(){
     //4.- se crea var para agregar en el htmll utilizando la propiedad innerHTML y modificando su valor
     
     //el checked se utiliza para saber si el input esta seleccionado, y retorna TRUE or FALSE
-    if(inputHipodoge.checked){ 
+    if(inputSquirtle.checked){ 
         //spanMascotaJugador.innerHTML = "Squirtle"
-        spanMascotaJugador.innerHTML = inputHipodoge.id
+        spanMascotaJugador.innerHTML = inputSquirtle.id
         //agregamos el valor del id a la nueva var mascotaJugador
-        mascotaJugador = inputHipodoge.id
+        mascotaJugador = inputSquirtle.id
     }
-    else if(inputCapipepo.checked){
-        spanMascotaJugador.innerHTML = inputCapipepo.id
-        mascotaJugador = inputCapipepo.id
+    else if(inputBulbasaur.checked){
+        spanMascotaJugador.innerHTML = inputBulbasaur.id
+        mascotaJugador = inputBulbasaur.id
     }
-    else if(inputRatigueya.checked){
-        spanMascotaJugador.innerHTML = inputRatigueya.id
-        mascotaJugador = inputRatigueya.id
+    else if(inputCharmander.checked){
+        spanMascotaJugador.innerHTML = inputCharmander.id
+        mascotaJugador = inputCharmander.id
     }
     else{
         alert("Selecciona una Mascota para continuar")
@@ -232,20 +233,21 @@ function secuenciaAtaque(){
     botones.forEach((boton) => {
         //enseguida al boton en si, se le agrega el evento click y se accede a el a traves del mismo evento
         boton.addEventListener('click', (e) => {
-            if(e.target.innerText === '🔥'){
-                ataqueJugador.push("FUEGO")
+            //validamos con la propiedad del icono textContent
+            if(e.target.textContent === '🔥'){
+                ataqueJugador.push('FUEGO')
                 console.log(ataqueJugador)
-                boton.style.background = "#1f509a7f"
+                boton.style.background = '#1f509a7f'
                 boton.disabled = true
-            }else if(e.target.innerText === '💧'){
-                ataqueJugador.push("AGUA")
+            }else if(e.target.textContent === '💧'){
+                ataqueJugador.push('AGUA')
                 console.log(ataqueJugador)
-                boton.style.background = "#1f509a7f"
-                boton.disbled = true
+                boton.style.background = '#1f509a7f'
+                boton.disabled = true
             }else{
-                ataqueJugador.push("TIERRA")
+                ataqueJugador.push('TIERRA')
                 console.log(ataqueJugador)
-                boton.style.background = "#1f509a7f"
+                boton.style.background = '#1f509a7f'
                 boton.disabled = true
             }
             ataqueDelEnemigo()
@@ -271,6 +273,11 @@ function ataqueDelEnemigo(){
     //quitamos el hardcode y agregamos directamente la informacion desde la variable del enemigo 
     let ataqueAleatorio = numeroAleatorio(0,ataquesMokeponEnemigo.length -1 )
     //let spanAtaqueEnemigo = document.getElementById('ataque-enemigo')
+
+    //**
+    // QUITAR LO HARDCODE DE ESTA FUNCION UTILIZANDO ATAQUESMOQUEPONENEMIGO 
+    //  */
+
 
     if(ataqueAleatorio == 0 || ataqueAleatorio == 1){
         ataqueEnemigo.push("FUEGO")
@@ -313,14 +320,14 @@ function combate(){
         else if(ataqueJugador[i] == "FUEGO" && ataqueEnemigo[i] == "TIERRA" || ataqueJugador[i] == "AGUA" && ataqueEnemigo[i] == "FUEGO" || ataqueJugador[i] == "TIERRA" && ataqueEnemigo[i] == "AGUA"){
             indexAmbosOponentes(i,i)
             crearMensaje("GANASTE!! 🏆")
-            vidasEnemigo--
-            spanVidasEnemigo.innerHTML = vidasEnemigo
+            victoriasJugador++
+            spanVidasJugador.innerHTML = victoriasJugador
         }
         else{
             indexAmbosOponentes(i,i)
             crearMensaje("PERDISTE 😭")
-            vidasJugador--
-            spanVidasJugador.innerHTML = vidasJugador
+            victoriasEnemigo ++
+            spanVidasEnemigo.innerHTML = victoriasEnemigo
         }
     }
     /**
@@ -346,14 +353,12 @@ function combate(){
 
 function revisarVidas(){
     //validamos las vidas del jugador y enemigo en esta funcion 
-    if(vidasJugador < vidasEnemigo){
+    if(victoriasJugador < victoriasEnemigo){
         crearMensajeFinal("Lo sentimos, perdiste, intenta nuevamente 🥹")
-        //manda llamar a la funcion finDelJuego
         finDelJuego()
-    }else if(vidasEnemigo < vidasJugador){
+    }else if(victoriasEnemigo < victoriasJugador){
         crearMensajeFinal("Felicidades, GANASTE! el juego ha llegado a su fin 🥳")
         finDelJuego()
-
     }else
     {
         crearMensajeFinal("Empate, sigue intentando 😒")
@@ -364,11 +369,7 @@ function revisarVidas(){
 //deshabilita los botones una vez que alguien perdio
 function finDelJuego(){
     
-    botonAgua.disabled = true   
-    botonFuego.disabled = true
-    botonTierra.disabled = true
     //creamos boton reiniciar
-    
     //reapaecemos el boton reiniciar
     botonReiniciar.style.display = 'flex'
     console.log("Funcion fin del juego")
