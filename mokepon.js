@@ -206,7 +206,7 @@ function mostrarAtaques(ataques){
 
     ataques.forEach((ataque) => {
         ataquesMokepon = `
-            <button class="btnAtaque BAtaque" id=${ataque.id}>${ataque.nombre}</button>
+            <button class="btn-ataques btnAtaque BAtaque" id=${ataque.id}>${ataque.nombre}</button>
         `
 
         //se agregan los botones dinamicamente desde js
@@ -235,15 +235,18 @@ function secuenciaAtaque(){
             if(e.target.innerText === '🔥'){
                 ataqueJugador.push("FUEGO")
                 console.log(ataqueJugador)
-                boton.style.disabled
+                boton.style.background = "#1f509a7f"
+                boton.disabled = true
             }else if(e.target.innerText === '💧'){
                 ataqueJugador.push("AGUA")
                 console.log(ataqueJugador)
-                boton.style.disabled
+                boton.style.background = "#1f509a7f"
+                boton.disbled = true
             }else{
                 ataqueJugador.push("TIERRA")
                 console.log(ataqueJugador)
-                boton.style.disabled
+                boton.style.background = "#1f509a7f"
+                boton.disabled = true
             }
             ataqueDelEnemigo()
         })

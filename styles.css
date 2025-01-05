@@ -106,13 +106,11 @@ label:hover{
     border-color: white;
   }
     
-
 input{
     display: none;
 }
 
 button{
-    width: 180px;
     margin: 10px;
     padding: 10px;
     border-radius: 10px;
@@ -121,16 +119,28 @@ button{
     font-weight: weight;
     font-style: normal;
     font-size: 1.5rem;
-
-    background-color: #1f509a7f;
     color: white;
-
 }
 
 button:hover{
     cursor: pointer;
+}
+
+.btn-general{
+    width: 180px;
+    background-color: #1f509a7f;
+    
+}
+
+.btn-ataques{
+    width: 140px;
     background-color: #1F509A;
 }
+
+.btn-general:hover{
+    background-color: #1F509A;
+}
+
 
 /* #boton-mascota{
     background-color: #1F509A;
