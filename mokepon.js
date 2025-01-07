@@ -33,9 +33,9 @@ const contenedorAtaques = document.getElementById("contenedor-ataques")
 //let sectionMensajes = document.getElementById('resultado')
 
 //**Canvas const
-const sectionVerMapa = document.getElementById('ver-mapa')
-const mapa = document.getElementById('mapa')
-let lienzo = mapa.getContext("2d")
+// const sectionVerMapa = document.getElementById('ver-mapa')
+// const mapa = document.getElementById('mapa')
+// let lienzo = mapa.getContext("2d")
 
 //Arreglo que almacena la cantidad de mokepones
 let mokepones = []
@@ -125,7 +125,7 @@ function iniciarJuego(){
     sectionAtaque.style.display = 'none'
     //se oculta boton reiniciar tambien
     //** CANVAS SECTION */
-    sectionVerMapa.style.display = 'none'
+   // sectionVerMapa.style.display = 'none'
     
     //agregamos de manera dinamica el codigo de tarjetas en HTML pero desde JS
     mokepones.forEach((mokepon) => {
@@ -166,18 +166,18 @@ function seleccionarMascotaJugador(){
     sectionMascota.style.display = 'none'
     
     //**ocultamos la seccion seleccionar mascota
-    //sectionAtaque.style.display = 'none'
+    sectionAtaque.style.display = 'flex'
 
-    sectionVerMapa.style.display = 'flex'
-    let imagenDeBulbasaur = new Image()
-    imagenDeBulbasaur.src = bulbasaur.foto
-    lienzo.drawImage(
-        imagenDeBulbasaur,
-        20,
-        40,
-        100,
-        100
-    )
+    //sectionVerMapa.style.display = 'flex'
+    // let imagenDeBulbasaur = new Image()
+    // imagenDeBulbasaur.src = bulbasaur.foto
+    // lienzo.drawImage(
+    //     imagenDeBulbasaur,
+    //     20,
+    //     40,
+    //     100,
+    //     100
+    // )
     
     
     //4.- se crea var para agregar en el html utilizando la propiedad innerHTML y modificando su valor
