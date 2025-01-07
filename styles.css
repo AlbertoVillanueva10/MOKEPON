@@ -15,6 +15,7 @@ body{
     font-style: normal;
     font-size: 16px;
     margin: 0 auto;
+    background-color: #608BC1
 }
 
 .contenedor {
@@ -204,6 +205,16 @@ p{
 #mascota-enemigo
 {
     color: antiquewhite;
+}
+
+#ver-mapa{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center ;
+}
+
+#mapa {
+    border: 2px solid black;
 }
 
 /* hasta 0-360px

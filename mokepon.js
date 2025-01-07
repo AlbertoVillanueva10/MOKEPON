@@ -32,6 +32,11 @@ const contenedorAtaques = document.getElementById("contenedor-ataques")
 //crearMensajeFinal
 //let sectionMensajes = document.getElementById('resultado')
 
+//**Canvas const
+const sectionVerMapa = document.getElementById('ver-mapa')
+const mapa = document.getElementById('mapa')
+let lienzo = mapa.getContext("2d")
+
 //Arreglo que almacena la cantidad de mokepones
 let mokepones = []
 //genera la representacion visual y por lo tanto dinamica de html desde js
@@ -58,6 +63,7 @@ let victoriasJugador = 0
 let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
+let seleccionJugador = 1
 
 
 //agregando class, siempre empieza con mayuscula
@@ -118,6 +124,8 @@ function iniciarJuego(){
     
     sectionAtaque.style.display = 'none'
     //se oculta boton reiniciar tambien
+    //** CANVAS SECTION */
+    sectionVerMapa.style.display = 'none'
     
     //agregamos de manera dinamica el codigo de tarjetas en HTML pero desde JS
     mokepones.forEach((mokepon) => {
@@ -155,12 +163,24 @@ function iniciarJuego(){
 function seleccionarMascotaJugador(){
     //cambiamos la propiedad a flex para aparecer la seccion seleccionar ataque
     
-    sectionAtaque.style.display = 'flex'
-    //ocultamos la seccion seleccionar mascota
-    
     sectionMascota.style.display = 'none'
     
-    //4.- se crea var para agregar en el htmll utilizando la propiedad innerHTML y modificando su valor
+    //**ocultamos la seccion seleccionar mascota
+    //sectionAtaque.style.display = 'none'
+
+    sectionVerMapa.style.display = 'flex'
+    let imagenDeBulbasaur = new Image()
+    imagenDeBulbasaur.src = bulbasaur.foto
+    lienzo.drawImage(
+        imagenDeBulbasaur,
+        20,
+        40,
+        100,
+        100
+    )
+    
+    
+    //4.- se crea var para agregar en el html utilizando la propiedad innerHTML y modificando su valor
     
     //el checked se utiliza para saber si el input esta seleccionado, y retorna TRUE or FALSE
     if(inputSquirtle.checked){ 
@@ -179,12 +199,17 @@ function seleccionarMascotaJugador(){
     }
     else{
         alert("Selecciona una Mascota para continuar")
+        window.location.reload();
     }
 
     extraerAtaques(mascotaJugador)
     //5.- mandamos llamar a la funcion justo despues de seleccionar el la mascota-jugador
     seleccionarMascotaEnemigo()
     
+}
+
+function jugadorNoSeleccionado(){
+
 }
 
 //se crea funcion para mostrar ataques del jugador, a traves del arreglo mokepones
