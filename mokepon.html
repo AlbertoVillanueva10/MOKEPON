@@ -50,6 +50,16 @@
     <section id="ver-mapa">
          <h1 class="titulo">Recorre el mapa con tu mokepon</h1>
          <canvas id="mapa"></canvas>
+         <div class="div-btns-movimiento">
+             <button class="btn-ataques" onmouseup="detenerMovimiento()" onmousedown="moverArribaBulbasaur()">Up </button>
+         </div>
+         <div class="div-btns-movimiento">
+             <button class="btn-ataques" onmouseup="detenerMovimiento()" onmousedown="moverDerechaBulbasaur()">Right</button>
+             <button class="btn-ataques" onmouseup="detenerMovimiento()" onmousedown="moverIzquierdaBulbasaur()">Left</button>
+        </div>
+        <div class="div-btns-movimiento">
+            <button class="btn-ataques" onmouseup="detenerMovimiento()" onmousedown="moverAbajoBulbasaur()">Down </button>
+        </div>
     </section>
     
     <section class="sub-containers" id="seleccionar-ataque">

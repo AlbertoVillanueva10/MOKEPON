@@ -64,6 +64,7 @@ let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
 let seleccionJugador = 1
+let intervalo 
 
 
 //agregando class, siempre empieza con mayuscula
@@ -75,6 +76,14 @@ class Mokepon{
         this.vida = vida
         //no va en el constructor ya que, no queremos que sea parte de todos los objetos sino que se mannipule diferente
         this.ataques = []
+        this.x = 20
+        this. y = 30
+        this.ancho = 80
+        this.alto = 80
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = foto 
+        this.velocidadX = 0
+        this.velocidadY = 0
     }
 }
 
@@ -169,15 +178,8 @@ function seleccionarMascotaJugador(){
     //sectionAtaque.style.display = 'none'
 
     sectionVerMapa.style.display = 'flex'
-    let imagenDeBulbasaur = new Image()
-    imagenDeBulbasaur.src = bulbasaur.foto
-    lienzo.drawImage(
-        imagenDeBulbasaur,
-        20,
-        40,
-        100,
-        100
-    )
+    intervalo = setInterval(pintarPersonaje,50)
+    
     
     
     //4.- se crea var para agregar en el html utilizando la propiedad innerHTML y modificando su valor
@@ -440,5 +442,39 @@ function numeroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+function pintarPersonaje(){
+    bulbasaur.x = bulbasaur.x + bulbasaur.velocidadX
+    bulbasaur.y = bulbasaur.y + bulbasaur.velocidadY
+    //funcion para limpiar el area antes de pintar
+    lienzo.clearRect(0,0, mapa.width, mapa.height)
+    lienzo.drawImage(
+        bulbasaur.mapaFoto,
+        bulbasaur.x,
+        bulbasaur.y,
+        bulbasaur.ancho,
+        bulbasaur.alto
+    )
+}
+
+function moverDerechaBulbasaur(){
+    bulbasaur.velocidadX = 5
+}
+
+function moverIzquierdaBulbasaur(){
+    bulbasaur.velocidadX = -5
+}
+
+function moverArribaBulbasaur(){
+    bulbasaur.velocidadY = -5
+}
+
+function moverAbajoBulbasaur(){
+    bulbasaur.velocidadY = 5
+}
+
+function detenerMovimiento(){
+    bulbasaur.velocidadX = 0
+    bulbasaur.velocidadY = 0
+}
  //1.- se carga codigo js una vez que todos los elementos de html ya existan, de esta manera el evento load una vez que caga el navegador ejecuta el codigo js y la funcion
 window.addEventListener('load', iniciarJuego)
