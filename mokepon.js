@@ -53,6 +53,7 @@ let inputSquirtle
 let inputBulbasaur 
 let inputCharmander 
 let mascotaJugador
+let mascotaJugadorObjeto
 //seccion botones ataques dinamicos
 //var para almacenar los ataques del mokepon
 let ataquesMokepon
@@ -68,7 +69,8 @@ let vidasJugador = 3
 let vidasEnemigo = 3
 let seleccionJugador = 1
 let intervalo 
-
+let mapaBackground = new Image()
+mapaBackground.src = './assets/mokemap.png'
 
 //agregando class, siempre empieza con mayuscula
 //El plano o molde para creacion de objetos
@@ -179,9 +181,6 @@ function seleccionarMascotaJugador(){
     
     //**ocultamos la seccion seleccionar mascota
     //sectionAtaque.style.display = 'none'
-
-    sectionVerMapa.style.display = 'flex'
-    iniciarMapa()
     
     //4.- se crea var para agregar en el html utilizando la propiedad innerHTML y modificando su valor
     
@@ -207,6 +206,8 @@ function seleccionarMascotaJugador(){
 
     extraerAtaques(mascotaJugador)
     //5.- mandamos llamar a la funcion justo despues de seleccionar el la mascota-jugador
+    sectionVerMapa.style.display = 'flex'
+    iniciarMapa()
     seleccionarMascotaEnemigo()
     
 }
@@ -432,7 +433,6 @@ function crearMensajeFinal(resultadoFinal){
     sectionMensajes.innerHTML = resultadoFinal
 }
 
-
 function reiniciarJuego(){
     window.location.reload();
 }
@@ -443,46 +443,64 @@ function numeroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-function pintarPersonaje(){
-    bulbasaur.x = bulbasaur.x + bulbasaur.velocidadX
-    bulbasaur.y = bulbasaur.y + bulbasaur.velocidadY
+function pintarCanvas(){
+    mascotaJugadorObjeto.x = mascotaJugadorObjeto.x + mascotaJugadorObjeto.velocidadX
+    mascotaJugadorObjeto.y = mascotaJugadorObjeto.y + mascotaJugadorObjeto.velocidadY
     //funcion para limpiar el area antes de pintar
     lienzo.clearRect(0,0, mapa.width, mapa.height)
     lienzo.drawImage(
-        bulbasaur.mapaFoto,
-        bulbasaur.x,
-        bulbasaur.y,
-        bulbasaur.ancho,
-        bulbasaur.alto
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
+    )
+    lienzo.drawImage(
+        mascotaJugadorObjeto.mapaFoto,
+        mascotaJugadorObjeto.x,
+        mascotaJugadorObjeto.y,
+        mascotaJugadorObjeto.ancho,
+        mascotaJugadorObjeto.alto
     )
 }
 
 function moverDerechaBulbasaur(){
-    bulbasaur.velocidadX = 5
+    mascotaJugadorObjeto.velocidadX = 5
 }
 
 function moverIzquierdaBulbasaur(){
-    bulbasaur.velocidadX = -5
+    mascotaJugadorObjeto.velocidadX = -5
 }
 
 function moverArribaBulbasaur(){
-    bulbasaur.velocidadY = -5
+    mascotaJugadorObjeto.velocidadY = -5
 }
 
 function moverAbajoBulbasaur(){
-    bulbasaur.velocidadY = 5
+    mascotaJugadorObjeto.velocidadY = 5
 }
 
 function detenerMovimiento(){
-    bulbasaur.velocidadX = 0
-    bulbasaur.velocidadY = 0
+    mascotaJugadorObjeto.velocidadX = 0
+    mascotaJugadorObjeto.velocidadY = 0
 }
 
 function iniciarMapa(){
-    intervalo = setInterval(pintarPersonaje,50)
+    mapa.width = 450
+    mapa.height = 350
+    mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
+    intervalo = setInterval(pintarCanvas,50)
     //evento para la presion de teclas, despues se crea la funcion
     window.addEventListener('keydown',sePresionoTecla)
     window.addEventListener('keyup',detenerMovimiento)
+}
+
+function obtenerObjetoMascota(){
+    for (let i = 0; i < mokepones.length; i++) {
+        if(mascotaJugador === mokepones[i].nombre){
+            return mokepones[i]
+        }
+    }
 }
 
 function sePresionoTecla(event){
