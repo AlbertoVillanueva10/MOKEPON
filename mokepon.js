@@ -1,3 +1,5 @@
+//const { Dropdown } = require("bootstrap")
+
 //iniciarjuego
 const sectionAtaque = document.getElementById('seleccionar-ataque')
 const botonReiniciar = document.getElementById('boton-reiniciar')
@@ -36,6 +38,7 @@ const contenedorAtaques = document.getElementById("contenedor-ataques")
 const sectionVerMapa = document.getElementById('ver-mapa')
 const mapa = document.getElementById('mapa')
 let lienzo = mapa.getContext("2d")
+
 
 //Arreglo que almacena la cantidad de mokepones
 let mokepones = []
@@ -178,9 +181,7 @@ function seleccionarMascotaJugador(){
     //sectionAtaque.style.display = 'none'
 
     sectionVerMapa.style.display = 'flex'
-    intervalo = setInterval(pintarPersonaje,50)
-    
-    
+    iniciarMapa()
     
     //4.- se crea var para agregar en el html utilizando la propiedad innerHTML y modificando su valor
     
@@ -475,6 +476,34 @@ function moverAbajoBulbasaur(){
 function detenerMovimiento(){
     bulbasaur.velocidadX = 0
     bulbasaur.velocidadY = 0
+}
+
+function iniciarMapa(){
+    intervalo = setInterval(pintarPersonaje,50)
+    //evento para la presion de teclas, despues se crea la funcion
+    window.addEventListener('keydown',sePresionoTecla)
+    window.addEventListener('keyup',detenerMovimiento)
+}
+
+function sePresionoTecla(event){
+    switch (event.key) {
+        case 'ArrowUp':
+            moverArribaBulbasaur()
+            break
+        case 'ArrowDown':
+            moverAbajoBulbasaur()
+            break
+        case 'ArrowLeft':
+            moverIzquierdaBulbasaur()
+            break
+        case 'ArrowRight':
+            moverDerechaBulbasaur()
+            break
+
+        default:
+            console.log(event.key + "-->" + "La tecla usada no mueve al personaje, utiliza flechas")
+            break;
+    }
 }
  //1.- se carga codigo js una vez que todos los elementos de html ya existan, de esta manera el evento load una vez que caga el navegador ejecuta el codigo js y la funcion
 window.addEventListener('load', iniciarJuego)
