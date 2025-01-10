@@ -72,23 +72,48 @@ let intervalo
 let mapaBackground = new Image()
 mapaBackground.src = './assets/mokemap.png'
 
+//**Var para hacer responsive segun la pantalla el mapa */
+
+let alturaQueBuscamos 
+let anchoDelMapa = window.innerWidth - 20
+
+alturaQueBuscamos = anchoDelMapa * 600 / 800
+
+mapa.width = anchoDelMapa
+mapa.height = alturaQueBuscamos
+
+const anchoMaximoDelMapa = 350
+
+if(anchoDelMapa > anchoMaximoDelMapa)
+    anchoDelMapa = anchoMaximoDelMapa -20
+
 //agregando class, siempre empieza con mayuscula
 //El plano o molde para creacion de objetos
 class Mokepon{
-    constructor(nombre, foto, vida){
+    constructor(nombre, foto, vida, fotoMapa){
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         //no va en el constructor ya que, no queremos que sea parte de todos los objetos sino que se mannipule diferente
         this.ataques = []
-        this.x = 20
-        this. y = 30
         this.ancho = 80
         this.alto = 80
+        this.x = numeroAleatorio(0, mapa.width - this.ancho)
+        this. y = numeroAleatorio(0, mapa.height - this.alto)
         this.mapaFoto = new Image()
-        this.mapaFoto.src = foto 
+        this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
         this.velocidadY = 0
+    }
+
+    pintarMokepon(){
+        lienzo.drawImage(
+        this.mapaFoto,
+        this.x,
+        this.y,
+        this.ancho,
+        this.alto
+        )
     }
 }
 
@@ -96,15 +121,27 @@ class Mokepon{
 //usando el constructor para crear objetos de la clase Mokepon
 
 //objetos instancia
-let squirtle = new Mokepon('Squirtle', './assets/mokepon-agua.png', 5)
-let bulbasaur = new Mokepon('Bulbasaur', './assets/mokepon-tierra.png', 5)
-let charmander = new Mokepon('Charmander', './assets/mokepon-fuego.png', 5)
+let squirtle = new Mokepon('Squirtle', './assets/mokepon-agua.png', 5, './assets/mokepon-agua.png')
+let bulbasaur = new Mokepon('Bulbasaur', './assets/mokepon-tierra.png', 5, './assets/mokepon-tierra.png')
+let charmander = new Mokepon('Charmander', './assets/mokepon-fuego.png', 5, './assets/mokepon-fuego.png')
 
+//**MOKEPONES ENEMIGOS */
+let squirtleEnemigo = new Mokepon('Squirtle', './assets/mokepon-agua.png', 5, './assets/mokepon-agua.png')
+let bulbasaurEnemigo = new Mokepon('Bulbasaur', './assets/mokepon-tierra.png', 5, './assets/mokepon-tierra.png')
+let charmanderEnemigo = new Mokepon('Charmander', './assets/mokepon-fuego.png', 5, './assets/mokepon-fuego.png')
 //almacena la informacion de los mokepoes
 //mokepones.push(Squirtle,Bulbasaur,Charmander)
 
 //objetos iterarios 
 squirtle.ataques.push(
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '🌱', id: 'boton-tierra'},
+)
+
+squirtleEnemigo.ataques.push(
     {nombre: '💧', id: 'boton-agua'},
     {nombre: '💧', id: 'boton-agua'},
     {nombre: '💧', id: 'boton-agua'},
@@ -120,7 +157,23 @@ bulbasaur.ataques.push(
     {nombre: '🔥', id: 'boton-fuego'},
 )
 
+bulbasaurEnemigo.ataques.push(
+    {nombre: '🌱', id: 'boton-tierra'},
+    {nombre: '🌱', id: 'boton-tierra'},
+    {nombre: '🌱', id: 'boton-tierra'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '🔥', id: 'boton-fuego'},
+)
+
 charmander.ataques.push(
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '🌱', id: 'boton-tierra'},
+)
+
+charmanderEnemigo.ataques.push(
     {nombre: '🔥', id: 'boton-fuego'},
     {nombre: '🔥', id: 'boton-fuego'},
     {nombre: '🔥', id: 'boton-fuego'},
@@ -208,13 +261,13 @@ function seleccionarMascotaJugador(){
     //5.- mandamos llamar a la funcion justo despues de seleccionar el la mascota-jugador
     sectionVerMapa.style.display = 'flex'
     iniciarMapa()
-    seleccionarMascotaEnemigo()
+    //**seleccionarMascotaEnemigo()
     
 }
 
-function jugadorNoSeleccionado(){
+// function jugadorNoSeleccionado(){
 
-}
+// }
 
 //se crea funcion para mostrar ataques del jugador, a traves del arreglo mokepones
 function extraerAtaques(mascotaJugador){
@@ -286,13 +339,15 @@ function secuenciaAtaque(){
 }
 
 //6.- creamos la funcion de enemigo
-function seleccionarMascotaEnemigo(){
+function seleccionarMascotaEnemigo(enemigo){
     //creamos la variable que almacenara el valor de la funcion aleatorio
-    let mascotaAleatorio = numeroAleatorio(1,mokepones.length -1)
+    //let mascotaAleatorio = numeroAleatorio(1,mokepones.length -1)
     
     //se modifica a solo esta linea, en lugar de las validaciones posteriores, accediendo directamente a la posicion del arreglo de manera dinamica
-    spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatorio].nombre
-    ataquesMokeponEnemigo = mokepones[mascotaAleatorio].ataques
+    //spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatorio].nombre
+    //ataquesMokeponEnemigo = mokepones[mascotaAleatorio].ataques
+    spanMascotaEnemigo.innerHTML = enemigo.nombre
+    ataquesMokeponEnemigo = enemigo.ataques
     secuenciaAtaque()
         
 }
@@ -419,7 +474,6 @@ function crearMensaje(resultado){
     nuevoAtaqueJugador.innerHTML = indexAtaqueJugador
     nuevoAtaqueEnemigo.innerHTML = indexAtaqueEnemigo
     
-
     // parrafo.innerHTML = 'Tu mascota ataco con: ' + ataqueJugador + ', la mascota del enemigo ataco con: ' + ataqueEnemigo + ' --> ' + resultado
     
     //agregamos el parafo accediendo al meodo de la seccion/div
@@ -455,13 +509,17 @@ function pintarCanvas(){
         mapa.width,
         mapa.height
     )
-    lienzo.drawImage(
-        mascotaJugadorObjeto.mapaFoto,
-        mascotaJugadorObjeto.x,
-        mascotaJugadorObjeto.y,
-        mascotaJugadorObjeto.ancho,
-        mascotaJugadorObjeto.alto
-    )
+    //**Funcion que pinta el jugador */
+    mascotaJugadorObjeto.pintarMokepon()
+    //**Funcion que pinta los enemigos */
+    squirtleEnemigo.pintarMokepon()
+    bulbasaurEnemigo.pintarMokepon()
+    charmanderEnemigo.pintarMokepon()   
+    if(mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0){
+        revisarColision(squirtleEnemigo)
+        revisarColision(bulbasaurEnemigo)
+        revisarColision(charmanderEnemigo)
+    }
 }
 
 function moverDerechaBulbasaur(){
@@ -486,8 +544,8 @@ function detenerMovimiento(){
 }
 
 function iniciarMapa(){
-    mapa.width = 450
-    mapa.height = 350
+    // mapa.width = 450
+    // mapa.height = 350
     mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
     intervalo = setInterval(pintarCanvas,50)
     //evento para la presion de teclas, despues se crea la funcion
@@ -523,5 +581,33 @@ function sePresionoTecla(event){
             break;
     }
 }
+
+function revisarColision(enemigo){
+    const arribaEnemigo = enemigo.y
+    const abajoEnemigo = enemigo.y + enemigo.alto
+    const derechaEnemigo = enemigo.x + enemigo.ancho
+    const izquierdaEnemigo = enemigo.x
+
+    const arribaMascota = mascotaJugadorObjeto.y
+    const abajoMascota = mascotaJugadorObjeto.y + mascotaJugadorObjeto.alto
+    const derechaMascota = mascotaJugadorObjeto.x + mascotaJugadorObjeto.ancho
+    const izquierdaMascota = mascotaJugadorObjeto.x
+
+    if(
+        abajoMascota < arribaEnemigo ||
+        arribaMascota > abajoEnemigo ||
+        derechaMascota  < izquierdaEnemigo ||
+        izquierdaMascota > derechaEnemigo
+    ){
+        return;
+    }
+    detenerMovimiento()
+    clearInterval(intervalo)
+    sectionAtaque.style.display = 'flex'
+    sectionVerMapa.style.display = 'none'
+    seleccionarMascotaEnemigo(enemigo)
+    alert("Acabas de colisionar con " + enemigo.nombre + "!!")
+}
+
  //1.- se carga codigo js una vez que todos los elementos de html ya existan, de esta manera el evento load una vez que caga el navegador ejecuta el codigo js y la funcion
 window.addEventListener('load', iniciarJuego)
