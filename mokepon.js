@@ -39,7 +39,8 @@ const sectionVerMapa = document.getElementById('ver-mapa')
 const mapa = document.getElementById('mapa')
 let lienzo = mapa.getContext("2d")
 
-
+//var para el servidor
+let jugadorId = null
 //Arreglo que almacena la cantidad de mokepones
 let mokepones = []
 //genera la representacion visual y por lo tanto dinamica de html desde js
@@ -224,6 +225,26 @@ function iniciarJuego(){
     
     //al presionarlo mandamos llamar a la funcion reiniciarJuego
     botonReiniciar.addEventListener('click',reiniciarJuego)
+
+    unirseAlJuego()
+}
+
+//invocando al servidor de node js
+function unirseAlJuego(){
+    fetch("http://localhost:8080/unirse")
+        .then(function (res){
+            console.log(res)
+            if(res.ok){
+                res.text()
+                .then(function (respuesta){
+                    console.log(respuesta );
+                    jugadorId = respuesta 
+                    
+                })
+            }
+            
+
+        })
 }
 
 //3.- una vez que presionamos el boton "seleccionar"
@@ -256,13 +277,27 @@ function seleccionarMascotaJugador(){
         alert("Selecciona una Mascota para continuar")
         window.location.reload();
     }
-
+    seleccionarMokepon(mascotaJugador)
     extraerAtaques(mascotaJugador)
     //5.- mandamos llamar a la funcion justo despues de seleccionar el la mascota-jugador
     sectionVerMapa.style.display = 'flex'
     iniciarMapa()
     //**seleccionarMascotaEnemigo()
     
+}
+
+//**ejecuta un fetch para el backend */
+function seleccionarMokepon(mascotaJugador){
+    fetch(`http://localhost:8080/mokepon/${jugadorId}`,{
+        method: "post",
+        //metadatos
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            mokepon: mascotaJugador
+        })
+     })
 }
 
 // function jugadorNoSeleccionado(){
