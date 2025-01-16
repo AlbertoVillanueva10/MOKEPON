@@ -546,6 +546,9 @@ function pintarCanvas(){
     )
     //**Funcion que pinta el jugador */
     mascotaJugadorObjeto.pintarMokepon()
+    
+    //**se envian las coordenadas al backend*/
+    enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
     //**Funcion que pinta los enemigos */
     squirtleEnemigo.pintarMokepon()
     bulbasaurEnemigo.pintarMokepon()
@@ -555,6 +558,19 @@ function pintarCanvas(){
         revisarColision(bulbasaurEnemigo)
         revisarColision(charmanderEnemigo)
     }
+}
+
+function enviarPosicion(x,y){
+    fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },  
+        body: JSON.stringify({
+            x,
+            y
+        })
+    })
 }
 
 function moverDerechaBulbasaur(){
