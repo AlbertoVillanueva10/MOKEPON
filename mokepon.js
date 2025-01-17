@@ -91,7 +91,8 @@ if(anchoDelMapa > anchoMaximoDelMapa)
 //agregando class, siempre empieza con mayuscula
 //El plano o molde para creacion de objetos
 class Mokepon{
-    constructor(nombre, foto, vida, fotoMapa){
+    constructor(nombre, foto, vida, fotoMapa, id = null){
+        this.id = id
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
@@ -126,61 +127,41 @@ let squirtle = new Mokepon('Squirtle', './assets/mokepon-agua.png', 5, './assets
 let bulbasaur = new Mokepon('Bulbasaur', './assets/mokepon-tierra.png', 5, './assets/mokepon-tierra.png')
 let charmander = new Mokepon('Charmander', './assets/mokepon-fuego.png', 5, './assets/mokepon-fuego.png')
 
-//**MOKEPONES ENEMIGOS */
-let squirtleEnemigo = new Mokepon('Squirtle', './assets/mokepon-agua.png', 5, './assets/mokepon-agua.png')
-let bulbasaurEnemigo = new Mokepon('Bulbasaur', './assets/mokepon-tierra.png', 5, './assets/mokepon-tierra.png')
-let charmanderEnemigo = new Mokepon('Charmander', './assets/mokepon-fuego.png', 5, './assets/mokepon-fuego.png')
 //almacena la informacion de los mokepoes
 //mokepones.push(Squirtle,Bulbasaur,Charmander)
 
+const SQUIRTLE_ATAQUES = [
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '🌱', id: 'boton-tierra'},
+]
+
 //objetos iterarios 
-squirtle.ataques.push(
-    {nombre: '💧', id: 'boton-agua'},
-    {nombre: '💧', id: 'boton-agua'},
-    {nombre: '💧', id: 'boton-agua'},
-    {nombre: '🔥', id: 'boton-fuego'},
-    {nombre: '🌱', id: 'boton-tierra'},
-)
+//... para que evite agregarlos como una "lista"
+squirtle.ataques.push(... SQUIRTLE_ATAQUES)
 
-squirtleEnemigo.ataques.push(
-    {nombre: '💧', id: 'boton-agua'},
-    {nombre: '💧', id: 'boton-agua'},
+const BULBASAUR_ATAQUES = [
+    {nombre: '🌱', id: 'boton-tierra'},
+    {nombre: '🌱', id: 'boton-tierra'},
+    {nombre: '🌱', id: 'boton-tierra'},
     {nombre: '💧', id: 'boton-agua'},
     {nombre: '🔥', id: 'boton-fuego'},
-    {nombre: '🌱', id: 'boton-tierra'},
-)
+]
 
-bulbasaur.ataques.push(
-    {nombre: '🌱', id: 'boton-tierra'},
-    {nombre: '🌱', id: 'boton-tierra'},
-    {nombre: '🌱', id: 'boton-tierra'},
-    {nombre: '💧', id: 'boton-agua'},
-    {nombre: '🔥', id: 'boton-fuego'},
-)
+bulbasaur.ataques.push(...BULBASAUR_ATAQUES)
 
-bulbasaurEnemigo.ataques.push(
-    {nombre: '🌱', id: 'boton-tierra'},
-    {nombre: '🌱', id: 'boton-tierra'},
-    {nombre: '🌱', id: 'boton-tierra'},
-    {nombre: '💧', id: 'boton-agua'},
+const CHARMANDER_ATAQUES = [
     {nombre: '🔥', id: 'boton-fuego'},
-)
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '🌱', id: 'boton-tierra'},
+]
 
-charmander.ataques.push(
-    {nombre: '🔥', id: 'boton-fuego'},
-    {nombre: '🔥', id: 'boton-fuego'},
-    {nombre: '🔥', id: 'boton-fuego'},
-    {nombre: '💧', id: 'boton-agua'},
-    {nombre: '🌱', id: 'boton-tierra'},
-)
+charmander.ataques.push(...CHARMANDER_ATAQUES)
 
-charmanderEnemigo.ataques.push(
-    {nombre: '🔥', id: 'boton-fuego'},
-    {nombre: '🔥', id: 'boton-fuego'},
-    {nombre: '🔥', id: 'boton-fuego'},
-    {nombre: '💧', id: 'boton-agua'},
-    {nombre: '🌱', id: 'boton-tierra'},
-)
 //squirtle.ataques.push()
 
 //agregamos la informacion de los objetos al arreglo principal
@@ -568,8 +549,36 @@ function enviarPosicion(x,y){
         },  
         body: JSON.stringify({
             x,
-            y
+            y 
         })
+
+    })
+    .then(function(res){
+        if(res.ok){
+            res.json()
+            .then(function({enemigos}){
+                console.log(enemigos);
+                enemigos.forEach(function(enemigo){
+                    let mokeponEnemigo = null 
+                    //** todo esto viene del servior
+                    const mokeponNombre = enemigo.mokepon.nombre || ""
+                    if(mokeponNombre === "Squirtle"){
+                        mokeponEnemigo = new Mokepon('Squirtle', './assets/mokepon-agua.png', 5, './assets/mokepon-agua.png')
+                    }else if(mokeponNombre === "Bulbasaur"){
+                        mokeponEnemigo = new Mokepon('Bulbasaur', './assets/mokepon-tierra.png', 5, './assets/mokepon-tierra.png')
+                    }
+                    else if(mokeponNombre === "Charmander"){
+                        mokeponEnemigo = new Mokepon('Charmander', './assets/mokepon-fuego.png', 5, './assets/mokepon-fuego.png')
+                    } 
+                    //las cordenadas que los otros jugadores enviaron al servidor
+                    mokeponEnemigo.x = enemigo.x
+                    mokeponEnemigo.y = enemigo.y
+                    
+                    mokeponEnemigo.pintarMokepon()
+                })
+                //**MOKEPONES ENEMIGOS */
+            })
+        }
     })
 }
 
