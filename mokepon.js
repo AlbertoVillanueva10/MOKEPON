@@ -352,7 +352,7 @@ function secuenciaAtaque(){
                 boton.disabled = true
             }
             //ataqueDelEnemigo()
-            if(ataqueJugador.length == 6) {
+            if(ataqueJugador.length == 5) {
                 enviarAtaques()
             }
         })
@@ -361,7 +361,7 @@ function secuenciaAtaque(){
 }
 
 function enviarAtaques(){
-    fetch(`/mokepon/${jugadorId}/ataques`,{
+    fetch(`http://localhost:8080/mokepon/${jugadorId}/ataques`,{
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -370,6 +370,24 @@ function enviarAtaques(){
             ataques: ataqueJugador 
         })
     })
+
+    intervalo = setInterval(obtenerAtaques, 50)
+}
+
+//se obtienen ataques del enemigo
+function obtenerAtaques(){
+    fetch(`http://localhost:8080/mokepon/${enemigoId}/ataques`)
+        .then(function(res){
+            if(res.ok){
+                res.json()
+                    .then(function({ataques}){
+                        if(ataques.length === 5){
+                            ataqueEnemigo = ataques 
+                            combate()
+                        }
+                    })
+            }
+        })
 }
 
 //6.- creamos la funcion de enemigo
@@ -429,6 +447,8 @@ function indexAmbosOponentes(jugador, enemigo){
 
 //creamos funcion para separar la logica del ataque, y ahhi mandamos llamar a la funcion que cree el mensaje dell ganador
 function combate(){
+    //se limpia la variable intervalo
+    clearInterval(intervalo)
     for (let i = 0; i < ataqueJugador.length; i++) {
         if(ataqueJugador[i] === ataqueEnemigo[i]){
             console.log(ataqueJugador[i])
