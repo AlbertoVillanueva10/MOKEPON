@@ -4,6 +4,11 @@ const cors = require("cors")
 
 //genera una instancia del servidor, se crea una aplicacion
 const app = express()
+//**Permite alojar informacion en el servidor para compartirla en ese apartado, a traves de la misma red wifi */
+app.use(express.static('public'))
+//**RUTA iOS o Linux http://(nombre equipo con hostname)Betos/Macbook-Pro.local:8080
+//**NOTA el archivo HTML tiene que llamarse index.html de lo contrario no lo encontrara
+//** */ para windows ejecutar ipconfic en lugar de hostname, y poner la direccion ip de tu computador en el apartado WIFI*/
 //para usar cors sin problemas
 app.use(cors()) 
 //funcion pata que las peticiones soporten el JSON como parte de su cuerpo 

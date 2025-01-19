@@ -16,6 +16,8 @@ body{
     font-size: 16px;
     margin: 0 auto;
     background-color: #608BC1
+    /* para quitar la opcion de seleccionar texto en los botones */
+    /* user-select none; */
 }
 
 .contenedor {

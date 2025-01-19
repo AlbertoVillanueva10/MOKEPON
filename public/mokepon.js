@@ -215,7 +215,7 @@ function iniciarJuego(){
 
 //invocando al servidor de node js
 function unirseAlJuego(){
-    fetch("http://localhost:8080/unirse")
+    fetch("http://betos-macbook-pro.local:8080/unirse")
         .then(function (res){
             console.log(res)
             if(res.ok){
@@ -233,15 +233,6 @@ function unirseAlJuego(){
 
 //3.- una vez que presionamos el boton "seleccionar"
 function seleccionarMascotaJugador(){
-    //cambiamos la propiedad a flex para aparecer la seccion seleccionar ataque
-    
-    sectionMascota.style.display = 'none'
-    
-    //**ocultamos la seccion seleccionar mascota
-    //sectionAtaque.style.display = 'none'
-    
-    //4.- se crea var para agregar en el html utilizando la propiedad innerHTML y modificando su valor
-    
     //el checked se utiliza para saber si el input esta seleccionado, y retorna TRUE or FALSE
     if(inputSquirtle.checked){ 
         //spanMascotaJugador.innerHTML = "Squirtle"
@@ -259,8 +250,12 @@ function seleccionarMascotaJugador(){
     }
     else{
         alert("Selecciona una Mascota para continuar")
-        window.location.reload();
+        //window.location.reload();
+        //**Finaliza el flujo de la funcion, y hace que ya no continue hasta que una condicional sea verdadera*/
+        return
     }
+
+    sectionMascota.style.display = 'none'
     seleccionarMokepon(mascotaJugador)
     extraerAtaques(mascotaJugador)
     //5.- mandamos llamar a la funcion justo despues de seleccionar el la mascota-jugador
@@ -272,7 +267,7 @@ function seleccionarMascotaJugador(){
 
 //**ejecuta un fetch para el backend */
 function seleccionarMokepon(mascotaJugador){
-    fetch(`http://localhost:8080/mokepon/${jugadorId}`,{
+    fetch(`http://betos-macbook-pro.local:8080/mokepon/${jugadorId}`,{
         method: "post",
         //metadatos
         headers: {
@@ -361,7 +356,7 @@ function secuenciaAtaque(){
 }
 
 function enviarAtaques(){
-    fetch(`http://localhost:8080/mokepon/${jugadorId}/ataques`,{
+    fetch(`http://betos-macbook-pro.local:8080/mokepon/${jugadorId}/ataques`,{
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -376,7 +371,7 @@ function enviarAtaques(){
 
 //se obtienen ataques del enemigo
 function obtenerAtaques(){
-    fetch(`http://localhost:8080/mokepon/${enemigoId}/ataques`)
+    fetch(`http://betos-macbook-pro.local:8080/mokepon/${enemigoId}/ataques`)
         .then(function(res){
             if(res.ok){
                 res.json()
@@ -585,7 +580,7 @@ function pintarCanvas(){
 }
 
 function enviarPosicion(x,y){
-    fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`, {
+    fetch(`http://betos-macbook-pro.local:8080/mokepon/${jugadorId}/posicion`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"

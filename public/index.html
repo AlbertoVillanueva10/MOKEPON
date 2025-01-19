@@ -51,14 +51,42 @@
          <h2 class="subtitulo">Recorre el mapa con tu mokepon</h2>
          <canvas id="mapa"></canvas>
          <div class="div-btns-movimiento">
-             <button class="btn-ataques" onmouseup="detenerMovimiento()" onmousedown="moverArribaBulbasaur()">Up </button>
+             <button 
+                class="btn-ataques" 
+                ontouchend="detenerMovimiento()" 
+                onmouseup="detenerMovimiento()" 
+                ontouchstart="moverArribaBulbasaur()"
+                onmousedown="moverArribaBulbasaur()"
+                >Up 
+            </button>
          </div>
          <div class="div-btns-movimiento">
-             <button class="btn-ataques" onmouseup="detenerMovimiento()" onmousedown="moverIzquierdaBulbasaur()">Left</button>
-             <button class="btn-ataques" onmouseup="detenerMovimiento()" onmousedown="moverDerechaBulbasaur()">Right</button>
+             <button 
+                class="btn-ataques" 
+                ontouchend="detenerMovimiento()" 
+                onmouseup="detenerMovimiento()" 
+                ontouchstart="moverIzquierdaBulbasaur()"
+                onmousedown="moverIzquierdaBulbasaur()"
+                >Left
+            </button>
+             <button 
+                class="btn-ataques" 
+                ontouchend="detenerMovimiento()" 
+                onmouseup="detenerMovimiento()" 
+                ontouchstart="moverDerechaBulbasaur()"
+                onmousedown="moverDerechaBulbasaur()"
+                >Right
+            </button>
         </div>
         <div class="div-btns-movimiento">
-            <button class="btn-ataques" onmouseup="detenerMovimiento()" onmousedown="moverAbajoBulbasaur()">Down </button>
+            <button
+             class="btn-ataques" 
+             ontouchend="detenerMovimiento()"
+             onmouseup="detenerMovimiento()"
+             ontouchstart="moverAbajoBulbasaur()"
+             onmousedown="moverAbajoBulbasaur()"
+             >Down 
+            </button>
         </div>
     </section>
     
