@@ -41,8 +41,11 @@ let lienzo = mapa.getContext("2d")
 
 //var para el servidor
 let jugadorId = null
+let enemigoId = null
+
 //Arreglo que almacena la cantidad de mokepones
 let mokepones = []
+let mokeponesEnemigos = []
 //genera la representacion visual y por lo tanto dinamica de html desde js
 let opcionDeMokepones 
 let ataqueJugador = []
@@ -348,10 +351,25 @@ function secuenciaAtaque(){
                 boton.style.background = '#1f509a7f'
                 boton.disabled = true
             }
-            ataqueDelEnemigo()
+            //ataqueDelEnemigo()
+            if(ataqueJugador.length == 6) {
+                enviarAtaques()
+            }
         })
     })
 
+}
+
+function enviarAtaques(){
+    fetch(`/mokepon/${jugadorId}/ataques`,{
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            ataques: ataqueJugador 
+        })
+    })
 }
 
 //6.- creamos la funcion de enemigo
@@ -530,15 +548,20 @@ function pintarCanvas(){
     
     //**se envian las coordenadas al backend*/
     enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
+
+    mokeponesEnemigos.forEach(function(mokepon){
+        mokepon.pintarMokepon()
+        revisarColision(mokepon)
+    })
     //**Funcion que pinta los enemigos */
-    squirtleEnemigo.pintarMokepon()
-    bulbasaurEnemigo.pintarMokepon()
-    charmanderEnemigo.pintarMokepon()   
-    if(mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0){
-        revisarColision(squirtleEnemigo)
-        revisarColision(bulbasaurEnemigo)
-        revisarColision(charmanderEnemigo)
-    }
+    // squirtleEnemigo.pintarMokepon()
+    // bulbasaurEnemigo.pintarMokepon()
+    // charmanderEnemigo.pintarMokepon()   
+    // if(mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0){
+    //     revisarColision(squirtleEnemigo)
+    //     revisarColision(bulbasaurEnemigo)
+    //     revisarColision(charmanderEnemigo)
+    // }
 }
 
 function enviarPosicion(x,y){
@@ -558,23 +581,24 @@ function enviarPosicion(x,y){
             res.json()
             .then(function({enemigos}){
                 console.log(enemigos);
-                enemigos.forEach(function(enemigo){
+                mokeponesEnemigos = enemigos.map(function(enemigo){
                     let mokeponEnemigo = null 
                     //** todo esto viene del servior
                     const mokeponNombre = enemigo.mokepon.nombre || ""
                     if(mokeponNombre === "Squirtle"){
-                        mokeponEnemigo = new Mokepon('Squirtle', './assets/mokepon-agua.png', 5, './assets/mokepon-agua.png')
+                        mokeponEnemigo = new Mokepon('Squirtle', './assets/mokepon-agua.png', 5, './assets/mokepon-agua.png',enemigo.id)
                     }else if(mokeponNombre === "Bulbasaur"){
-                        mokeponEnemigo = new Mokepon('Bulbasaur', './assets/mokepon-tierra.png', 5, './assets/mokepon-tierra.png')
+                        mokeponEnemigo = new Mokepon('Bulbasaur', './assets/mokepon-tierra.png', 5, './assets/mokepon-tierra.png',enemigo.id)
                     }
                     else if(mokeponNombre === "Charmander"){
-                        mokeponEnemigo = new Mokepon('Charmander', './assets/mokepon-fuego.png', 5, './assets/mokepon-fuego.png')
+                        mokeponEnemigo = new Mokepon('Charmander', './assets/mokepon-fuego.png', 5, './assets/mokepon-fuego.png',enemigo.id)
                     } 
                     //las cordenadas que los otros jugadores enviaron al servidor
                     mokeponEnemigo.x = enemigo.x
                     mokeponEnemigo.y = enemigo.y
                     
-                    mokeponEnemigo.pintarMokepon()
+                    //retornamos el objeto
+                    return mokeponEnemigo
                 })
                 //**MOKEPONES ENEMIGOS */
             })
@@ -667,6 +691,7 @@ function revisarColision(enemigo){
     sectionVerMapa.style.display = 'none'
     seleccionarMascotaEnemigo(enemigo)
     alert("Acabas de colisionar con " + enemigo.nombre + "!!")
+    enemigoId = enemigo.id
 }
 
  //1.- se carga codigo js una vez que todos los elementos de html ya existan, de esta manera el evento load una vez que caga el navegador ejecuta el codigo js y la funcion
