@@ -4,7 +4,7 @@ const cors = require("cors")
 
 //genera una instancia del servidor, se crea una aplicacion
 const app = express()
-//**Permite alojar informacion en el servidor para compartirla en ese apartado, a traves de la misma red wifi */
+//**Permite alojar informacion en el servidor para compartirla en ese apartado, a traves de la misma red wifi desde localhost */
 app.use(express.static('public'))
 //**RUTA iOS o Linux http://(nombre equipo con hostname)Betos/Macbook-Pro.local:8080
 //**NOTA el archivo HTML tiene que llamarse index.html de lo contrario no lo encontrara

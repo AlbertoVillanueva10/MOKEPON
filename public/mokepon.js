@@ -215,7 +215,7 @@ function iniciarJuego(){
 
 //invocando al servidor de node js
 function unirseAlJuego(){
-    fetch("http://betos-macbook-pro.local:8080/unirse")
+    fetch("http://10.0.0.29:8080/unirse")
         .then(function (res){
             console.log(res)
             if(res.ok){
@@ -267,7 +267,7 @@ function seleccionarMascotaJugador(){
 
 //**ejecuta un fetch para el backend */
 function seleccionarMokepon(mascotaJugador){
-    fetch(`http://betos-macbook-pro.local:8080/mokepon/${jugadorId}`,{
+    fetch(`http://10.0.0.29:8080/mokepon/${jugadorId}`,{
         method: "post",
         //metadatos
         headers: {
@@ -356,7 +356,7 @@ function secuenciaAtaque(){
 }
 
 function enviarAtaques(){
-    fetch(`http://betos-macbook-pro.local:8080/mokepon/${jugadorId}/ataques`,{
+    fetch(`http://10.0.0.29:8080/mokepon/${jugadorId}/ataques`,{
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -371,7 +371,7 @@ function enviarAtaques(){
 
 //se obtienen ataques del enemigo
 function obtenerAtaques(){
-    fetch(`http://betos-macbook-pro.local:8080/mokepon/${enemigoId}/ataques`)
+    fetch(`http://10.0.0.29:8080/mokepon/${enemigoId}/ataques`)
         .then(function(res){
             if(res.ok){
                 res.json()
@@ -580,7 +580,7 @@ function pintarCanvas(){
 }
 
 function enviarPosicion(x,y){
-    fetch(`http://betos-macbook-pro.local:8080/mokepon/${jugadorId}/posicion`, {
+    fetch(`http://10.0.0.29:8080/mokepon/${jugadorId}/posicion`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -598,7 +598,7 @@ function enviarPosicion(x,y){
                 console.log(enemigos);
                 mokeponesEnemigos = enemigos.map(function(enemigo){
                     let mokeponEnemigo = null 
-                    //** todo esto viene del servior
+                    //** todo esto viene del servidor
                     const mokeponNombre = enemigo.mokepon.nombre || ""
                     if(mokeponNombre === "Squirtle"){
                         mokeponEnemigo = new Mokepon('Squirtle', './assets/mokepon-agua.png', 5, './assets/mokepon-agua.png',enemigo.id)
@@ -609,8 +609,8 @@ function enviarPosicion(x,y){
                         mokeponEnemigo = new Mokepon('Charmander', './assets/mokepon-fuego.png', 5, './assets/mokepon-fuego.png',enemigo.id)
                     } 
                     //las cordenadas que los otros jugadores enviaron al servidor
-                    mokeponEnemigo.x = enemigo.x
-                    mokeponEnemigo.y = enemigo.y
+                    mokeponEnemigo.x = enemigo.x || 0
+                    mokeponEnemigo.y = enemigo.y || 0
                     
                     //retornamos el objeto
                     return mokeponEnemigo
