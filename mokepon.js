@@ -163,28 +163,27 @@ function iniciarJuego(){
 function seleccionarMascotaJugador(){
     //cambiamos la propiedad a flex para aparecer la seccion seleccionar ataque
     
-    sectionMascota.style.display = 'none'
     
     //**ocultamos la seccion seleccionar mascota
     sectionAtaque.style.display = 'flex'
-
+    
     //sectionVerMapa.style.display = 'flex'
     // let imagenDeBulbasaur = new Image()
     // imagenDeBulbasaur.src = bulbasaur.foto
     // lienzo.drawImage(
-    //     imagenDeBulbasaur,
-    //     20,
-    //     40,
-    //     100,
-    //     100
-    // )
-    
-    
-    //4.- se crea var para agregar en el html utilizando la propiedad innerHTML y modificando su valor
-    
-    //el checked se utiliza para saber si el input esta seleccionado, y retorna TRUE or FALSE
-    if(inputSquirtle.checked){ 
-        //spanMascotaJugador.innerHTML = "Squirtle"
+        //     imagenDeBulbasaur,
+        //     20,
+        //     40,
+        //     100,
+        //     100
+        // )
+        
+        
+        //4.- se crea var para agregar en el html utilizando la propiedad innerHTML y modificando su valor
+        
+        //el checked se utiliza para saber si el input esta seleccionado, y retorna TRUE or FALSE
+        if(inputSquirtle.checked){ 
+            //spanMascotaJugador.innerHTML = "Squirtle"
         spanMascotaJugador.innerHTML = inputSquirtle.id
         //agregamos el valor del id a la nueva var mascotaJugador
         mascotaJugador = inputSquirtle.id
@@ -199,9 +198,10 @@ function seleccionarMascotaJugador(){
     }
     else{
         alert("Selecciona una Mascota para continuar")
-        window.location.reload();
+        return
     }
-
+    
+    sectionMascota.style.display = 'none'
     extraerAtaques(mascotaJugador)
     //5.- mandamos llamar a la funcion justo despues de seleccionar el la mascota-jugador
     seleccionarMascotaEnemigo()
