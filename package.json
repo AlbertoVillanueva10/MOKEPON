@@ -4,6 +4,7 @@
   "description": "Its a game you vs the PC in a combat",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",  // Este comando inicia tu servidor
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
