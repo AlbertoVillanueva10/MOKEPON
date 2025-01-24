@@ -215,7 +215,7 @@ function iniciarJuego(){
 
 //invocando al servidor de node js
 function unirseAlJuego(){
-    fetch("http://10.0.0.29:8080/unirse")
+    fetch("https://mokepon-xm96.onrender.com/unirse")
         .then(function (res){
             console.log(res)
             if(res.ok){
@@ -267,7 +267,7 @@ function seleccionarMascotaJugador(){
 
 //**ejecuta un fetch para el backend */
 function seleccionarMokepon(mascotaJugador){
-    fetch(`http://10.0.0.29:8080/mokepon/${jugadorId}`,{
+    fetch(`https://mokepon-xm96.onrender.com/mokepon/${jugadorId}`,{
         method: "post",
         //metadatos
         headers: {
@@ -356,7 +356,7 @@ function secuenciaAtaque(){
 }
 
 function enviarAtaques(){
-    fetch(`http://10.0.0.29:8080/mokepon/${jugadorId}/ataques`,{
+    fetch(`https://mokepon-xm96.onrender.com/mokepon/${jugadorId}/ataques`,{
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -371,7 +371,7 @@ function enviarAtaques(){
 
 //se obtienen ataques del enemigo
 function obtenerAtaques(){
-    fetch(`http://10.0.0.29:8080/mokepon/${enemigoId}/ataques`)
+    fetch(`https://mokepon-xm96.onrender.com/mokepon/${enemigoId}/ataques`)
         .then(function(res){
             if(res.ok){
                 res.json()
@@ -580,7 +580,8 @@ function pintarCanvas(){
 }
 
 function enviarPosicion(x,y){
-    fetch(`http://10.0.0.29:8080/mokepon/${jugadorId}/posicion`, {
+    //fetch(`http://10.0.0.29:8080/mokepon/${jugadorId}/posicion`, {
+    fetch(`https://mokepon-xm96.onrender.com/mokepon/${jugadorId}/posicion`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
