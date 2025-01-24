@@ -565,9 +565,12 @@ function pintarCanvas(){
     enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
 
     mokeponesEnemigos.forEach(function(mokepon){
-        mokepon.pintarMokepon()
-        revisarColision(mokepon)
+        if(mokepon != undefined){
+            mokepon.pintarMokepon()
+            revisarColision(mokepon)
+        }
     })
+    
     //**Funcion que pinta los enemigos */
     // squirtleEnemigo.pintarMokepon()
     // bulbasaurEnemigo.pintarMokepon()
@@ -599,20 +602,23 @@ function enviarPosicion(x,y){
                 console.log(enemigos);
                 mokeponesEnemigos = enemigos.map(function(enemigo){
                     let mokeponEnemigo = null 
-                    //** todo esto viene del servidor
-                    const mokeponNombre = enemigo.mokepon.nombre || ""
-                    if(mokeponNombre === "Squirtle"){
-                        mokeponEnemigo = new Mokepon('Squirtle', './assets/mokepon-agua.png', 5, './assets/mokepon-agua.png',enemigo.id)
-                    }else if(mokeponNombre === "Bulbasaur"){
-                        mokeponEnemigo = new Mokepon('Bulbasaur', './assets/mokepon-tierra.png', 5, './assets/mokepon-tierra.png',enemigo.id)
+                    if(enemigo.mokepon != undefined)
+                    {
+                        //** todo esto viene del servidor
+                        const mokeponNombre = enemigo.mokepon.nombre || ""
+                        if(mokeponNombre === "Squirtle"){
+                            mokeponEnemigo = new Mokepon('Squirtle', './assets/mokepon-agua.png', 5, './assets/mokepon-agua.png',enemigo.id)
+                        }else if(mokeponNombre === "Bulbasaur"){
+                            mokeponEnemigo = new Mokepon('Bulbasaur', './assets/mokepon-tierra.png', 5, './assets/mokepon-tierra.png',enemigo.id)
+                        }
+                        else if(mokeponNombre === "Charmander"){
+                            mokeponEnemigo = new Mokepon('Charmander', './assets/mokepon-fuego.png', 5, './assets/mokepon-fuego.png',enemigo.id)
+                        } 
+                        //las cordenadas que los otros jugadores enviaron al servidor
+                        mokeponEnemigo.x = enemigo.x || 0
+                        mokeponEnemigo.y = enemigo.y || 0
+                        
                     }
-                    else if(mokeponNombre === "Charmander"){
-                        mokeponEnemigo = new Mokepon('Charmander', './assets/mokepon-fuego.png', 5, './assets/mokepon-fuego.png',enemigo.id)
-                    } 
-                    //las cordenadas que los otros jugadores enviaron al servidor
-                    mokeponEnemigo.x = enemigo.x || 0
-                    mokeponEnemigo.y = enemigo.y || 0
-                    
                     //retornamos el objeto
                     return mokeponEnemigo
                 })
