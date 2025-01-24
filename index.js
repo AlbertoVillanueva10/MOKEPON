@@ -118,6 +118,11 @@ app.get("/mokepon/:jugadorId/ataques", (req, res) => {
 })
 
 //inicia el servidor, y se le da el puerto donde escuchara las peticiones
-app.listen(8080, () => {
+//**app.listen(8080, () => {
     console.log("Servidor funcionando")
-})
+//})
+// Usa process.env.PORT en lugar de 8080
+const port = process.env.PORT || 8080;  // Si no hay PORT definido, usa 8080 (para desarrollo local)
+app.listen(port, () => {
+  console.log(`Servidor funcionando en el puerto ${port}`);
+});
